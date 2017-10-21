@@ -1,0 +1,351 @@
+
+%\newpage
+\section{A new algorithm of computing upper bounds}
+
+One key ingredient of continued fraction based methods is the computation of upper bounds of the positive real roots of some polynomials. We give in Theorem \ref{thm:log} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, Algorithm \ref{alg:up}, is proposed for computing upper bounds of positive real roots.
+
+\begin{algorithm}
+\SetAlgoCaptionSeparator{.}
+\caption{\algcf}
+\DontPrintSemicolon
+\KwIn{ A squarefree polynomial $f \in \ZZ[x] \setminus \{0\}$. }
+\KwOut{ $roots$, a list of isolating intervals of positive roots of $f$. }
+
+ $roots=\emptyset$;
+  $s=V(f)$;\;
+%  \If {$s \equiv 0$}{ \Return { $roots$}; }
+
+ % \If {$s\equiv 1$} {\Return { $(0,\infty)$}; }
+$intstack=\emptyset$;
+$intstack$.add($\{1,0,0,1,f,s\}$);\;
+
+\While{$intstack\neq \emptyset$} {
+  $\{a,b,c,d,p,s\}=intstack.$pop();\tcc{pop  the first element}
+  $\alpha=\lb(p)$;\;
+  \If{$\alpha\ge1$ }{
+	$\{ a,c,p \}=\{ \alpha  a,\alpha c ,H_\alpha(p) \}$;
+	$\{ b,d,p \}=\{   a+b,c+d ,T(p) \}$;
+
+	\If { $p(0)= = 0$}{
+	  $roots$.add$([\frac{b}{d},\frac{b}{d}])$ ;
+	  $p=\frac{p}{x}$;\;
+	}
+	$s=V(p)$;\;
+	\If {$s= = 0$}{
+	  continue;\;
+	}
+	\ElseIf{$s= = 1$}{
+			
+	  $roots$.add($intvl(a,b,c,d)$);
+	  continue;\;
+	}
+
+  }
+  $ \left\{ p_1,a_1,b_1,c_1,d_1,r \right\}=\left\{ T(p),a,a+b,c,c+d,0 \right\}$
+
+\If{$p_1(0)= =0$}{
+  $roots$.add($[\frac{b_1}{d_1},\frac{b_1}{d_1}]$);
+  $p_1=\frac{p_1}{x};r=1$;\;
+}
+$s_1=V(p_1)$;
+$\left\{ s_2,a_2,b_2,c_2,d_2 \right\}=\left\{ s-s_1-r,b,a+b,d,c+d \right\}$;
+%$ s_2 = s- s_1 - r; a_2 = b; b_2 = a + b; c_2 = d; d_2 = c + d$;\;
+
+\If {$s_2>1$ }{
+  $ p_2= (x+1)^{\deg(p)}T(p)$;\;
+  \If {$p_2(0)= = 0$}{
+	$p_2=\frac{p_2}{x}$;
+	$s_2=V(p_2)$;\;
+  }
+}
+\If{$s_1= = 1$ }{
+
+	  $roots$.add($intvl(a_1,b_1,c_1,d_1)$);\;
+}
+\ElseIf{$s_1>1$ }{
+
+$intstack$.add($\{a_1,b_1,c_1,d_1,p_1,s_1\}$);\;
+}
+
+\If{$s_2= = 1$}{
+
+	  $roots$.add($intvl(a_2,b_2,c_2,d_2)$);\;
+}
+\ElseIf{$s_2>1$ }{
+
+$intstack$.add($\{a_2,b_2,c_2,d_2,p_2,s_2\}$);\;
+}
+}
+\label{alg:cf}
+\end{algorithm}
+
+\begin{theorem} \label{thm:log}
+  Suppose   $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\ (a_n>0)$  is a univariate polynomial in $x$ with real coefficients.  Then  a nonnegative number $u$ is an upper bound of positive roots of $p$ if $u$   satisfies $\min_{j=0}^{n}\left\{  \sum_{i=j}^n a_i u^{i-j}\right\}\ge0$.
+\end{theorem}
+\begin{proof}
+  If $n= =0$, then $p$ is a nonzero constant and any positive number is its upper bound of positive roots.
+
+  Otherwise, if $b>u$,  we claim that $\sum_{i=j}^na_ib^{i-j}> \sum_{i=j}^na_iu^{i-j}$ for any $j= 0,\ldots,n-1$.
+
+  When $j=n-1$, $\sum_{i=n-1}^na_ib^{i-n+1}-\sum_{i=n-1}^na_iu^{i-n+1}=a_n(b-u)>0.$ The claim holds.
+
+  Assume the claim holds  when $j=k$. When $j=k-1$,  $\sum_{i=k-1}^na_ib^{i-k+1}=\left(\sum_{i=k}^na_ib^{i-k}\right)b+a_{k-1} $. By assumption
+  $\sum_{i=k}^na_ib^{i-k}>\sum_{i=k}^na_iu^{i-k}\ge0$. Since $b>u\ge0$, $\left(\sum_{i=k}^na_ib^{i-k}\right)b>\left (\sum_{i=k}^na_iu^{i-k} \right)u  $
+  and $\sum_{i=k-1}^na_ib^{i-k+1}> \sum_{i=k-1}^na_iu^{i-k+1}$. So  $\sum_{i=j}^na_ib^{i-j}> \sum_{i=j}^na_iu^{i-j}$ for any $j= 0,\ldots,n-1$.
+
+
+  By the above claim,   $p(b)=\sum_{i=0}^na_ib^i>0$ when  $b>u$. Because $b$ is arbitrarily chosen, $u$ is an upper bound of the positive roots of $p$.
+
+\end{proof}
+
+
+The following theorem was given by Akritas et al. in  \cite{akr06,akr08}, which computes positive root upper bounds of univariate polynomials.
+
+\begin{theorem}[Akritas-Strzebo\'{n}ski-Vigklas, \cite{akr06}] \label{thm:qup}
+
+  Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and let $d(p)$ and $t(p)$ denote the degree and the number of its terms, respectively.
+
+  Moreover, assume that $p(x)$ can be written as\begin{equation}
+	p(x)=q_1(x)-q_2(x)+q_3(x)-q_4(x)+\cdots +q_{2m-1}(x)-q_{2m}(x)+g(x)
+	\label{eq:1}
+  \end{equation}
+  where all the coefficients of polynomials $q_i(x)$ $(i=1,2,\ldots,2m)$ and $g(x)$ are positive. In addition,
+  assume that for $i=1,2,\ldots,m$ we have
+  \begin{equation*}
+	q_{2i-1}(x)=c_{2i-1,1}x^{e_{2i-1,1}}+\cdots+c_{2i-1,t_{2i-1}}x^{e_{2i-1,t_{2i-1}}}
+  \end{equation*}
+  and
+  \begin{equation*}
+	q_{2i}(x)=b_{2i,1}x^{e_{2i,1}}+\cdots+b_{2i,t_{2i}}x^{e_{2i,t_{2i}}}
+  \end{equation*}
+  where $e_{2i-1,1}=d(q_{2i-1})$, $e_{2i,1}=d(q_{2i})$, $t_{2i-1}=t(q_{2i-1}),$ and $t_{2i}=t(q_{2i})$   and the exponent of each term in $q_{2i-1}(x)$ is greater than the exponent of each term in $q_{2i}(x)$. If for all indices $i=1,2,\ldots,m$, we have
+  \begin{equation*}
+	t(q_{2i-1})\ge t(q_{2i}),
+  \end{equation*}
+  then an upper bound of the values of the positive roots of $p(x)$ is given by
+
+  \begin{equation}\label{eq:2}
+	up= \max_{i=1,2,\ldots,m}\left\{ \max_{j=1,2,\ldots,t_{2i}}\left\{ \left( \frac{b_{2i,j}}{c_{2i-1,j}} \right)^{\frac{1}{e_{2i-1,j}- e_{2i,j} } } \right\}  \right\}
+  \end{equation}
+  for any permutation of the positive coefficients $c_{2i-1,j}, $ $j=1,2,\ldots,t_{2i-1}$.
+  Otherwise, for each of the indices $i$ for which we have
+  \begin{equation*}
+	t_{2i-1}<t_{2i},
+  \end{equation*}
+  we {\bf break up} one of the coefficients of $q_{2i-1}(x)$ into $t_{2i}-t_{2i-1} +1$ parts, so that now $t(q_{2i} ) = t(q_{2i-1})$ and apply the same formula (\ref{eq:2}) given above.
+
+
+\end{theorem}
+
+%\textbf{ Theorem \ref{thm:log} , \ref{thm:qup} all describe the properties of upper bounds of positive real roots. We will claim that all the upper bounds obtain by Theorem
+%\ref{thm:qup}  also satisfies Theorem \ref{thm:log} by below theorem. So if there has a method which can work out the  optimal upper bound satisfying Theorem \ref{thm:log}, it will at least better than any method based on Theorem \ref{thm:qup} when only consider the sharp of upper bound.}
+
+
+We shall show in Theorem \ref{thm:com1} that the bound given by Theorem \ref{thm:log} is better than that given by Theorem \ref{thm:qup}.
+
+\begin{theorem}\label{thm:com}
+   Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and   $u$ denote an upper bound of positive roots of $p$ obtained by Theorem \ref{thm:qup}, then $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
+
+\end{theorem}
+
+\begin{proof}
+  %Set $u$ obtains after break up and    permutation of the positive coefficients $c_{2i-1,j}, $ $j=1,2,\ldots,t_{2i-1}$ for  $i=1,2,\ldots,m$.
+
+  %For any $k\in n-1,n-2,\ldots,0$.
+  For every $ a_i<0$, by Theorem \ref{thm:qup}, there exist  $c_{i_1}x^{e_{i_1}}$ and $b_{i_2}x^{e_{i_2}},$  respectively, such that
+    $e_{i_1}>e_{i_2}$ and $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$. By  Theorem \ref{thm:qup} $b_{i_2}x^{e_{i_2} }$ is the term $-a_ix^i$
+  and $c_{i_1}x^{e_{i_1} }$ is either a whole or a part (broken up by Theorem \ref{thm:qup}) of a positive term of $p$.
+
+  For every  $a_j>0$, by Theorem \ref{thm:qup}, $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So \begin{dmath*}\sum_{i=k}^na_iu^i\ge \sum_{i=k,a_i<0}^n \left( c_{i_1}u^{e_{i_1}}-
+  b_{i_2}u^{e_{i_2}} \right)\ge 0 \end{dmath*} for any $k= 0,1,\ldots,n$. Then $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and
+  $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
+\end{proof}
+
+% \textbf{ What's more, some time  the  optimal upper bound satisfying Theorem \ref{thm:log}, is sharper than the bound obtain by Theorem \ref{thm:qup}. }
+
+\begin{theorem}\label{thm:com1}
+
+  Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients. Let  $u_1$ denote the optimal upper bound of
+  positive real roots satisfying Theorem \ref{thm:log} and $u_2$ denote the optimal upper bound of positive real roots satisfying Theorem \ref{thm:qup}, then $u_1\le u_2$ and the  strict inequality can hold.
+\end{theorem}
+
+\begin{proof}
+  By Theorem \ref{thm:com}, $u_1\le u_2$.
+  Let $p(x)=x^2+x-2$. Then $u_2=\sqrt{2}$ and $u_1=1$. So
+  $u_1<u_2$ for this $P$.
+\end{proof}
+
+
+\begin{theorem}
+  Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (V(p)> 0)$ be a polynomial with real coefficients. Let  $u$ denote the output of Algorithm \ref{alg:up} and $u_1$ denote the optimal upper bound of $p$ satisfying
+ Theorem \ref{thm:log}. When $u$ is less than or equal to $1$, $u<2u_1$.
+
+\end{theorem}
+
+
+\begin{algorithm}
+\SetAlgoCaptionSeparator{.}
+\caption{\less}
+\DontPrintSemicolon
+\KwIn{ $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\in\ZZ[x], \exists a_i,a_na_i<0 $. }
+\KwOut{ true: the positive root bound of $p$ must be less than $1$;\\\ \ \ \ \ \ \ \ \ \ \ \ \ \    false: cannot determine whether the bound is less than $1$. }
+
+$start=n-1$;\;
+$lastNeg=0$;\;
+$hSign=\sign(a_n)$;\;
+
+\While{$\sign(a_{lastNeg})+hSign\neq 0$ }{
+  $lastNeg=lastNeg+1$;\;
+
+}
+
+\While{$\sign(a_{start})+hSign\neq 0$ }{
+  $start=start-1$;\;
+
+}
+$cfSum=\abs(a_n)$;\;
+$i=n-1$;\;
+$j=start$;\;
+$last=start$;\;
+\While{$i\ge lastNeg-1 \text{ and } j\ge lastNeg-1$}
+{
+	\If{$\sign(cfSum)<0$}
+	{
+	  \While{$i>last\text{ and } \sign(a_i)\neq hSign$ }{
+		$i=i-1$;
+	  }
+
+	 \If{$i= = last$}{
+	   \Return {false;}
+	 }
+	 $cfSum=cfSum+\abs(a_i)$;\;
+	 $i=i-1$;\;
+
+
+	}\Else{
+	  \If{$j= = lastNeg-1$ }{
+		\Return{ true;}
+
+
+	  }
+	  \While{$j\ge lastNeg \text{ and } \sign(a_j)+hSign\neq 0$ }{
+		$j=j-1$;
+	  }
+	  $cfSum=cfSum-\abs(a_j)$;\;
+	  $last=j$;\;
+
+
+	}
+
+
+}
+
+\Return {true; }
+\label{alg:less}
+\end{algorithm}
+
+
+
+\begin{algorithm}[H]\label{alg:up}
+\SetAlgoCaptionSeparator{.}
+\caption{\up}
+\DontPrintSemicolon
+\KwIn{$p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\in\ZZ[x], \exists a_i,a_na_i<0. $ }
+\KwOut{ an upper bound of the positive roots of $p$. }
+$start=n-1$;
+$lastNeg=0$;
+$hSign=\sign(a_n)$;
+$base=1$;\;
+
+\If{$\neg$\less($p$) }{
+  return $2$;
+}
+\While{$\sign(a_{lastNeg})+hSign\neq 0$ }{
+  $lastNeg=lastNeg+1$;\;
+
+}
+
+\While{$\sign(a_{start})+hSign\neq 0$ }{
+  $start=start-1$;\;
+
+}
+
+$i=n$;\;
+\While{$i= = n$}{
+
+  $i=n-1$;\;
+  $j=start$;\;
+  $cfSum=\abs(a_n)$;\;
+
+	\While{$i\ge lastNeg-1 \text{ and } j\ge lastNeg-1$}{
+		\If{$\sign(cfSum)<0$}
+		{
+		  \While{$i>j\text{ and } \sign(a_i)\neq hSign$ }{
+			$i=i-1$;
+		 }
+		 \If {$i= = j$}{
+		   break;
+		 }
+		 $cfSum=cfSum+\abs(a_i)2^{(n-i)base}$;\;
+		 $i=i-1$;\;
+
+
+	   }\Else{
+
+		 \If{$j= = lastNeg-1$ }{
+			$j=lastNeg-2$;
+			break;\;
+
+		 }
+
+		\While{$j\ge lastNeg \text{ and } \sign(a_j)+hSign\neq 0$ }{
+			$j=j-1$;
+		}
+
+		 $cfSum=cfSum-\abs(a_i)2^{(n-j)base}$;\;
+
+		$j=j-1$;\;
+
+
+
+	   }
+
+  }
+  \If{$j= = lastNeg-2$}{
+	$base=base+1$;
+	$i=n$;\;
+
+  }
+
+
+}
+\Return{$\frac{1}{2^{base-1}}$; }
+
+\end{algorithm}
+
+\begin{proof}
+  In Algorithm \ref{alg:up}, if  $\frac{1}{2^{base}}\ge u_1,$ then $\min_{j=0}^{n}\left\{ \sum_{i=j}^na_i\left( {\frac{1}{2^{base}} }
+  \right)^{i-j}\right \}\ge 0$ by the proof of Theorem \ref{thm:log} and thus %, by Line $29$ of Algorithm \ref{alg:up}, $base$ increases $1$ ($ base=base+1$).
+  the loop does not terminate at this step.
+  So when Algorithm \ref{alg:up} returns, $base$ must satisfy $\frac{1}{2^{base}}<u_1$. Therefore, the output $u=\frac{1}{2^{base-1}}$ and $u<2u_1$.
+  Obviously, this algorithm will terminate.
+
+  Furthermore,  $\min_{j=0}^{n-1}\left\{ \sum_{i=j}^na_i\left( {\frac{1}{2^{base-1}} } \right)^{i-j}\right \}\ge 0$ by Theorem \ref{thm:log}. So, $u=\frac{1}{2^{base-1}}$ is an upper bound of $p$.
+\end{proof}
+
+
+\begin{corollary}
+  Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0$ $ (V(p)> 0)$ be a polynomial with real coefficients. Set $u$ to be the optimal upper bound of positive roots of $P$ satisfying Theorem
+  \ref{thm:log}. Then  Algorithm \ref{alg:up} costs at most $O(n\log(u+1))$  additions and multiplications.
+\end{corollary}
+
+
+\section{Tricks}
+{\bf Variable substitution}
+If $p(x)\in \ZZ[x]$ and $p(x)=p_1(x^k)\ (k>1),$ then substitute $y=x^k$ in $p$. Obviously, $\deg(p_1,y)=\frac{\deg(p,x)}{k}$. We first isolate the real roots of $p_1$ then
+obtain the real roots of $p$. We can see in Figure \ref{fig:2} that degree is a key fact affecting the running time. Using this trick, we can greatly reduce the running time of ${\it ChebyshevT}$
+and {\it ChebyshevU} when each term of the polynomials is of even degree. The running time on such polynomials can be found in Table \ref{tab:mm2}. The same trick was also taken into account in \cite{johnson06}.
+
+{\bf Incomplete termination check}
+If $p(x)\in \ZZ[x]$ and $V(p)= 2$, we may try to check whether the sign of $p(1)$ is the same as the sign of the leading coefficient of $p$. If they are not the same, then $p$  has one positive root in $(0,1)$ and the other one in $(1,+\infty)$. So, we can terminate this subtree. Since the whole \froot\ procedure is a tree and \froot\ spends more than 90 percent of the
+total time on computing $T(p)$, this trick may improve the efficiency of the algorithm greatly.

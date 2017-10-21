@@ -1,0 +1,121 @@
+
+\section{Algorithm based on  continued fraction}
+In this section, we first recall Descartes' rule of signs, which gives a bound on the number of positive real roots. Then the Vincent theorem, which  ensures
+the termination of algorithms based on  continued fraction, is presented. Finally, we review an algorithm of real root isolation based on  continued fraction.
+%and the using the notation of \cite{akr05}.
+
+As usual, $\deg(p)$ denotes the degree of univariate polynomial $p$. The derivative of polynomial $p$ with respect to the only variable is denoted by $p'$ and $\gcd(f,g)$ means the greatest common divisor of polynomials $f$ and $g$.
+
+\begin{note}[Sign variation]
+Let $S=\left\{ a_0,a_1,\ldots,a_n \right\}$ be a finite sequence of non-zero real numbers. Define $V(S)$, the {\em sign variation} of $S$, as follows.
+\[V(S)=0\ \text{ if } |S|\le1,\]
+\[  V(a_0,\ldots,a_{n-1},a_n)=  \left\{\begin{aligned}
+ &  V(a_0,\ldots,a_{n-1})+1 \text{ if }a_{n-1}a_n<0;\\
+&V(a_0,\ldots,a_{n-1}), \text{ otherwise}.\\
+	\end{aligned}
+	\right.
+\]
+If some elements of $S$ are zero, remove those zero-elements to get a new sequence and define $V(S)$ to be the sign variation of this new sequence.
+\end{note}
+
+%\begin{note}
+%  $\deg(p)$: The degree of polynomial $p$. $p'$: the derivative of polynomial $p$ with respect to the only variable. $\gcd(f,g)$: The greatest common divisor of polynomials $f$ and $g$.
+%\end{note}
+
+
+
+%Using the above notations, we recall Descarts' rule of signs:
+
+\begin{theorem}[Descartes' rule of signs] \label{thm:des}
+  Suppose $p=\sum_{i=0}^na_ix^i\in\RR[x]$ has $m$ positive real roots, counted with multiplicity. Set $V(p)=V(a_0,a_1,\ldots,a_n)$. Then $m\le V(p)$, and $V(p)-m$ is even.
+\end{theorem}
+
+%For a polynomial $p\in \RR[x]$, modern algorithm map the considered interval to $(0,\infty)$ to get a polynomial $p_1$  and guarantee  that two polynomials' real roots have one-to-one correspondence. Theorem \ref{thm:des} gives a upper bound of number of
+%positive real roots, which can guarantee the correctness of Continued Fractions algorithm.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{comment}
+A modern version of the algorithm has been invented by \cite{collin76}. The original method  firstly map all the positive real roots in $(0,1)$, then use bisection strategy and show
+that if transformations $H_{\frac{1}{2}}$ and $H_{\frac{1}{2}}T$ are applied iteratively on any square-free polynomial $P$, one obtain, after a finite number of transformations,
+a polynomial $Q$ such that $V(Q)\le 1$. \cite{akr80} modify the subdivision strategy, simply say, it recursion  computer the lower bound $b$ of positive real roots and shift
+$x\leftarrow x+b$, then  first search the real roots in interval $(0,1]$ later in interval $(1,+\infty)$. Until all the positive real roots been found.
+
+The correctness of all the algorithms are based on Theorem  \ref{thm:des}. The proof of the termination and complexity computation of their algorithms is base on the following theorems:
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{theorem}[Vincent's theorem]\label{thm:vin}
+  Let $p(x)$ be a real polynomial of degree $n$ which has only simple roots. It is possible to determine a positive quantity $\delta$ so that for every pair of positive real numbers $a$ and $b$ with $|b-a| < \delta$, the coefficients sequence of every transformed polynomial of the form
+  $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x}) $
+		  has exactly 0 or 1 sign variation. The second case is possible if and only if $p(x)$ has a single root within $(a,b)$.
+\end{theorem}
+
+\begin{algorithm}
+\SetAlgoCaptionSeparator{.}
+\caption{\algm}
+\DontPrintSemicolon
+\KwIn{ A non-zero polynomial $p(x)\in \ZZ[x] $. }
+\KwOut{$I$  a set of real root isolating intervals of $p(x)$. }
+$I=\emptyset$; \;
+\If {$\deg(p)= = 0$} {return $I$;}
+$P=\frac{p}{\gcd(p,p')}$; \tcc{ square free}
+\If {$p(0)= = 0$ } { $I.add([0,0])$; \tcc{ add $[0,0]$ to set $I$}
+\dec($p$); \tcc {Algorithm \ref{alg:dec}} }
+$I$.addAll(\algcf($p$)); \;
+\tcc { add all the positive root intervals to set $I$ } \tcc{ \algcf\ is described as Algorithm \ref{alg:cf}}
+$p=-p$;\;
+$I$.addAll(\algcf($p$)); %\tcc{\algcf\ is described in Algorithm \ref{alg:cf}}
+\label{alg:main}
+\end{algorithm}
+
+  Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. Therefore, Theorem \ref{thm:vin} guarantees the termination of these  procedures.
+
+\begin{definition} As in \cite{akr05}, we define the following transformations for a univariate polynomial $p(x)$.
+  \begin{eqnarray*}
+  R(p(x))=x^n(p(\frac{1}{x})),\\
+  H_\lambda(p(x))=p(\lambda x),\\
+  T(p(x))=p(x+1).
+  \end{eqnarray*}
+\end{definition}
+
+$T(p)$  is also called	Taylor shift one \cite{ger04,joh05}. In our experiments when Algorithm \ref{alg:up} is used for computing upper bounds, $T(p)$  takes  more than
+ninety percent of running time\footnote{the result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but   finally we chose the  classical
+method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think this substituting
+will still improve the performance of our method.
+
+\begin{algorithm}
+\SetAlgoCaptionSeparator{.}
+\caption{\dec}
+\DontPrintSemicolon
+\KwIn{ $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0,n>0 $. }
+\KwOut{$p=a_nx^{n-1}+a_{n-1}x^{n-2}+\cdots+a_2x+a_1$ . }
+\end{algorithm}
+
+\begin{algorithm}\label{alg:lb}
+\SetAlgoCaptionSeparator{.}
+\caption{\lb}
+\DontPrintSemicolon
+\KwIn{ $p\in\ZZ[x] $. }
+\KwOut{$root\_lb$, a lower bound of positive roots of $p$. }
+$p=R(p)$;\;
+$root\_lb=$\up($p$); \tcc{\up\ is described as Algorithm \ref{alg:up}}
+\label{alg:dec}
+\end{algorithm}
+
+
+\begin{definition}
+$  intvl(a,b,c,d)=  \left\{\begin{aligned}
+&  (\min\left\{ \frac{a}{c},\frac{b}{d} \right\},\max\left\{ \frac{a}{c},\frac{b}{d} \right\} ) &\text{ if } cd\neq0;\\
+& (0,\infty), &\text{ otherwise}.\\
+	\end{aligned}
+	\right.
+$
+\end{definition}
+
+
+Using the above notations and definitions, an algorithm for isolating all the real roots of a nonzero univariate polynomial is described as Algorithm \ref{alg:main}.
+Algorithm \ref{alg:cf}, which has only a little modification of the algorithm in \cite{akr80,akr08}, is presented here to make our subsequent description clearer.
+

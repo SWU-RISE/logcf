@@ -1,0 +1,105 @@
+% !Mode\dots ``TeX:UTF-8''
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{comment}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{breqn}
+\usepackage[ruled, vlined, linesnumbered]{algorithm2e}
+\usepackage{titlesec}
+\usepackage[top=25.4mm,  bottom=25.4mm,  left=31.7mm,  right=31.2mm]{geometry}
+%\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{color}
+\parskip 1.0mm
+   \usepackage{amsmath, amssymb}
+   \usepackage{latexsym}
+   \newcommand{\mycite}[1]{$^{\mbox{\rm\scriptsize\cite{#1}}}\!$}
+
+\usepackage{float}
+\usepackage{url}
+%\usepackage{yfonts}
+\usepackage{comment}
+\usepackage{amsfonts}
+\usepackage{latexsym,amsmath,epsfig,amssymb,graphics}
+\usepackage{caption}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+
+
+\include{def}
+\graphicspath{{img/}}
+
+
+
+% Document starts
+\begin{document}
+
+
+	
+	% Title portion
+	\title{\froot: An Efficient Tool for Real Root Isolation}
+		
+		\author[1]{Liyun Dai\thanks{dailiyun@swu.edu.cn. Corresponding author}	}
+		\author[2]{Bican Xia \thanks{xbc@math.pku.edu.cn}}
+		\affil[1]{RISE, Southwest University, Chongqing, China}
+		\affil[2]{LMAM \& School of Mathematical Science\  Peking University,  Beijing,  China}
+	
+	\renewcommand\Authands{ and }
+\date{}
+\maketitle
+
+\input{section/abs}
+\input{section/intro}
+
+\input{section/alg}
+
+\input{section/nalg}
+
+\input{section/exper}
+
+
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%%\appendix
+%% \section{}
+%% \label{}
+
+%% References
+%%
+%% Following citation commands can be used in the body text:
+%% Usage of \cite is as follows:
+%%   \cite{key}         ==>>  [#]
+%%   \cite[chap. 2]{key} ==>> [#, chap. 2]
+%%
+
+%% References with bibTeX database:
+
+%\bibliographystyle{elsarticle-num}
+%\bibliography{<your-bib-database>}
+
+%% Authors are advised to submit their bibtex database files. They are
+%% requested to list a bibtex style file in the manuscript if they do
+%% not want to use elsarticle-num.bst.
+
+%% References without bibTeX database:
+\section*{Acknowledgements}
+The authors would like to thank Steven Fortune who sent us the source code of \eign\ and Elias P. Tsigaridas who helped us compile \cf.
+
+
+%\begin{thebibliography}{00}
+
+\bibliographystyle{abbrv}
+\bibliography{realroot}
+
+
+
+\end{document}
+
