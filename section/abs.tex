@@ -2,10 +2,11 @@
   This paper revisits an   algorithm for isolating real roots of  univariate
   polynomials based on continued fractions. It follows  the work of Vincent,	Uspensky, Collins and Akritas, Johnson and Krandick.
   We use  some tricks, especially  a new algorithm  for computing an upper bound of positive roots, so as to improve the   algorithm of   isolating real roots.   The complexity of our method for computing an upper bound of positive roots is  $O(n\log(u+1))$ where $u$ is the optimal upper bound satisfying
-  Theorem \ref{thm:log} and  $n$ is the degree of the polynomial. Our  method has been implemented as a  software package \froot\ using \texttt{C++} language. For many benchmarks \froot \  is  two or three times
-  faster   than  the function {\tt RootIntervals} of \MM. And it  is much faster than   another continued fractions based on software \cf, which seems to be one of the
-  fastest available open software for exact real root isolation. For those  benchmarks which  have only real roots, \froot\ is
-  much faster than \sle\ and \eign\ which are based on numerical computation.
+  Theorem \ref{thm:log} and  $n$ is the degree of the polynomial. Our  method has been implemented as a  software package \froot\ using \texttt{C++} language. For many benchmarks \froot \  is mean four  times
+  faster   than  the function {\tt realroot} of \MAPLE. {\color{red}In some cases \froot\ is slow than the function {\tt \inte} of \MM, but we find that there is a bug in  {\tt \inte} during we test. And it  is also much faster than   open source real root solver.}
+%   another continued fractions based on software \cf, which seems to be one of the
+%  fastest available open software for exact real root isolation. For those  benchmarks which  have only real roots, \froot\ is
+%  much faster than \sle\ and \eign\ which are based on numerical computation.
 ~\\
 {\bf Keywords: }
 univariate polynomial,  real root isolation, continued fractions,  computer algebra
