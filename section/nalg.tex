@@ -344,7 +344,7 @@ $i=n$;\;
 {\bf Variable substitution}
 If $p(x)\in \ZZ[x]$ and $p(x)=p_1(x^k)\ (k>1),$ then substitute $y=x^k$ in $p$. Obviously, $\deg(p_1,y)=\frac{\deg(p,x)}{k}$. We first isolate the real roots of $p_1$ then
 obtain the real roots of $p$. We can see in Figure \ref{fig:2} that degree is a key fact affecting the running time. Using this trick, we can greatly reduce the running time of ${\it ChebyshevT}$
-and {\it ChebyshevU} when each term of the polynomials is of even degree. The running time on such polynomials can be found in Table \ref{tab:mm2}. The same trick was also taken into account in \cite{johnson06}.
+and {\it ChebyshevU} when each term of the polynomials is of even degree. The running time on such the polynomials can be found in Figure \ref{fig:r}. The same trick was also taken into account in \cite{johnson06}.
 
 {\bf Incomplete termination check}
 If $p(x)\in \ZZ[x]$ and $V(p)= 2$, we may try to check whether the sign of $p(1)$ is the same as the sign of the leading coefficient of $p$. If they are not the same, then $p$  has one positive root in $(0,1)$ and the other one in $(1,+\infty)$. So, we can terminate this subtree. Since the whole \froot\ procedure is a tree and \froot\ spends more than 90 percent of the
