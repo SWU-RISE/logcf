@@ -60,7 +60,8 @@ Obviously, $n!L_n$ is a polynomial with integer coefficients.
  are  the fastest in many cases.
  In our experiments, \froot\ is much faster than \cf. %We only consider a few of benchmarks with only simple roots as they can indicate  difference between two softwares.
  The comparative result can be found in
- Table \ref{tab:open}. {\color{red}\froot\ is speedup between $2$ and $200$ compare with \cf.  In Figure \ref{fig:r} and Figure \ref{fig:2}, \froot\ is about $4$ times faster than \AND\ and the maximum speedup is more than $15$. Compared with \SLV, \froot\  is mean $4000$ times faster on $MR_n$ polynomials,  $10$ times faster on  \SLV\ on $W_n,T_n,U_n,H_n$ polynomials and  $4$ times faster  on $M_n$ polynomials. Under $MI_n$ polynomials \froot\ is about $4$ times slower than \SLV. }
+ Table \ref{tab:open}. {\color{red}\froot\ is speedup between $2$ and $200$ compare with \cf.  In Figure \ref{fig:r} and Figure \ref{fig:2}, \froot\ is about $4$ times faster than \AND\ and the maximum speedup is more than $15$.  Figure \ref{fig:3} plots the  compared 
+ 	result between \froot\ and \SLV. As the figure show, \SLV, \froot\  is mean   $7$ times faster on  \SLV\ on $W_n,T_n,U_n,H_n,WP_n$. Under $MI_n$ polynomials \froot\ is little slow  than \SLV. }
  
  
   We also compare \froot\  with numerical methods  \eign\ \cite{eigsolev} and \sle\ \cite{hemmer09}. As \eign\ computes all the complex roots, we choose $W_n$, $mW_n$ and $IW_n$ as benchmarks with degrees ranging from 10 to 90, which have only real roots. \sle\ computes only real roots but it has weak stability. Its output on $W_{30}$ only has eight real roots, which is obviously wrong. \sle's running time\footnote{When  running time is very short we run every case for more than ten times and compute the mean.} on $W_{10}$ is $0.022$ seconds and
@@ -263,7 +264,7 @@ $U_{200}$ & 4.15 &  0.12& $M_{1200}$ & 88 & 0.05 \\
 
 \begin{figure}[!ht]
 	\begin{centering}
-		\includegraphics[width=4.4in]{Tn}
+		\includegraphics[width=4.4in,height=1.2in]{Tn}
 		\caption{ compare about solving ChebyshevT polynomials on new environment\label{fig:r}}
 	\end{centering}
 \end{figure}
@@ -299,8 +300,14 @@ $U_{200}$ & 4.15 &  0.12& $M_{1200}$ & 88 & 0.05 \\
 
 \begin{figure}[!ht]
 \begin{centering}
-\includegraphics[width=4.4in]{Rn}
+\includegraphics[width=4.4in,height=1.2in]{Rn}
 \caption{ $R(n,b,r)$ benchmarks  with differ setting on new environment\label{fig:2}}
 \end{centering}
 \end{figure}
 
+\begin{figure}[!ht]
+	\begin{centering}
+		\includegraphics[width=4.4in,height=1.2in]{logcfslv}
+		\caption{ Mean running time with differ kinds of polynomials on old environment\label{fig:3}}
+	\end{centering}
+\end{figure}
