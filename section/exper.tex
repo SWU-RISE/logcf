@@ -1,22 +1,24 @@
 
-\section{Experiments }
+\section{Experiments}
 %\subsection{Implementation}
-\subsubsection{New environment}
 
-{\color{red}Since   source code and execution files  
-	of    \eign, \cf,  \sle\  can not be found in public area at now, we only compare \froot\ with \AND, \MM's \inte\  and  \MAPLE's \REALROOT\  on   a 64-bit Intel(R) Core(TM) i7 CPU-4710Q @ 2.50GHz with 8GB RAM memory and Windows 7. In this environment \froot\ compiled by visual studio 2013}.
+%\subsection{Environment}
 
-\subsubsection{Old environment}
+We first explain the implementation and computation environment.
+
+{\bf Old environment}\ \ \ 
 The main algorithm for isolating real roots based on our improvements has been implemented as a \texttt{C} program, \froot \footnote{The program can be downloaded through \url{https://github.com/djuanbei/logcf}}. Compilation was done using {\tt gcc} version 4.6.3 with optimization flags -O2.
 We use {\tt Singular} \cite{singular} to read polynomials from files or standard input and to eliminate multi-factors of polynomials. We use the GMP\footnote{ \url{http://gmplib.org/}}
 (version 5.05), arbitrary-length integers libraries, to deal with big integer computation.
-Some of test did before 2014   on a 64-bit Intel(R) Core(TM) i5 CPU 650 @ 3.20GHz with 4GB RAM memory and Ubuntu 12.04 GNU/Linux.
+Some tests were done before 2014   on a 64-bit Intel(R) Core(TM) i5 CPU 650 @ 3.20GHz with 4GB RAM memory and Ubuntu 12.04 GNU/Linux.
 
-
+{\bf New environment}\ \ \ 
+Since   source code and execution files
+	of    \eign, \cf\ and \sle\  cannot be found in public area so far, we only compare \froot\ with \AND, \MM's \inte\  and  \MAPLE's \REALROOT\  on   a 64-bit Intel(R) Core(TM) i7 CPU-4710Q @ 2.50GHz with 8GB RAM memory and Windows 7. In this environment \froot\ was compiled by visual studio 2013.
 
 \subsection{Benchmarks }
  \subsubsection{$W_n$}
- {\it Wilkinson} polynomials: $W_n=\Pi_{i=1}^n(x-i)$. The integers $1,2,\ldots,n $ are  all the real roots of $W_n$.
+ {\it Wilkinson} polynomials: $W_n=\Pi_{i=1}^n(x-i)$. %The integers $1,2,\ldots,n $ are  all the real roots of $W_n$.
   \subsubsection{$mW_n$}
   %{\it Wilkinson}  polynomials have a fine property  of containing only rational roots, which most of the polynomials do not have . So we modify
   Modified {\it Wilkinson} polynomials: $mW_n=W_n-1$.
@@ -24,7 +26,7 @@ Some of test did before 2014   on a 64-bit Intel(R) Core(TM) i5 CPU 650 @ 3.20GH
   If $n>10$, $mW_n$ has $n$ simple real roots but most of them are irrational.
  \subsubsection{$IW_n$}
  The distance between  $W_n$'s two  nearest real roots  is  $1$ and the distance between $mW_n$'s two nearest real roots  is nearly $1$. %Their real roots distribution   tends to be  uniform.  So
- We construct new polynomials $IW_n=\Pi_{i=1}^n(ix-1)$, which have a completely different distance between any two nearest real roots.
+ We construct new polynomials $IW_n=\Pi_{i=1}^n(ix-1)$, which have a completely different nearest distance. % between any two nearest real roots.
  \subsubsection{$ mIW_n$ }
  We modify $IW_n$  into $mIW_n=IW_n-1$ for the same purpose  as we construct $mW_n$. Most real roots of $mIM_n$  become irrational.
  \subsubsection{$T_n$} {\it ChebyshevT} polynomials: $T_0=1,T_1=x,T_{n+1}=2xT_n-T_{n-1}$. $T_n$ has $n$ simple real roots.
@@ -36,34 +38,48 @@ Obviously, $n!L_n$ is a polynomial with integer coefficients.
  \subsubsection{$M_n$} {\it Mignotte} polynomials: $x^n-2(5x-1)^2$. If $n$ is odd, $M_n$ has three simple real roots. If $n$ is even, it has four simple real roots.
 
 \subsubsection{$MR_n$}{\it Mignotte} rational center polynomials: $ x^n-((2^7-1)x-1)^2$.
-	 
+	
  \subsubsection{$H_n$}{\it Hermite } polynomials:  $H_0=1,H_1=2x,H_n=2xH_{n-1}-2(n-1)H_{n-2}$. $H_n$ has $n$ simple real roots.
- 
+
  \subsubsection{$MI_n$} {\it Mignotte} irrational center polynomials: $x^{129}-((2^{\frac{1}{4}n}-1)x^2-1)^2$.
- 
- 
+
+
  \subsubsection{$R(n,b,r) $} Randomly generated polynomials: $R(n,b,r)$=$a_nx^n+\cdots+a_1x+a_0$ with $|a_i|\le b, Pr[a_i\ge 0]=\frac{1}{2}$ and  $Pr[a_i\neq 0] =1-r,$ where $Pr$ means probability.
+ 
+ 
+
  \subsection{Results}
+ {\color{red}
+We  convert  all input polynomials to squarefree before
+solve real roots. And the  converting time is not including when record
+solving real roots time.ss}
+
  The root isolation timings in Tables \ref{tab:open} are in seconds.  Most of the benchmarks we chose have large degrees and the timings show that our tool is very efficient.
 % some  applications of isolation real roots produce very large degree polynomials, such as quantifier elimination.
- {\color{red} As a  built-in  \MAPLE\ function, \REALROOT\ is    compared with  our tool \froot. 
- 	The   \MAPLE\  we use has a version number 2017.}  For  almost all
- benchmarks, our  software \froot\  can be  four  times faster than \REALROOT. The comparative data can be found in Figure \ref{fig:r} and Figure \ref{fig:2}. {\color{red} In many cases, \froot\ is much faster than \REALROOT, the mean speedup is more than $4$ and the largest speedup is more than $15$.}
+As a  built-in  \MAPLE\ function, \REALROOT\ is    compared with  our tool \froot.
+ 	The   \MAPLE\  we use has a version number 2017.  For  almost all
+ benchmarks, our  software \froot\  can be  four  times faster than \REALROOT. The comparative data can be found in Figure \ref{fig:newresult} and Table \ref{tab:other}. In many cases, \froot\ is much faster than \REALROOT, the mean speedup is more than $4$ and the largest speedup is more than $900$.
+
+
+ As a  built-in \MM\ symbol, \inte\ is    compared with  our tool \froot. The  \MM\  we use has a version number 11.1. {\color{red}
+ 	\froot\ is as performance as \inte, in other words, in some test cases \froot\ is faster than \inte\ but in some other cases \inte\ is faster than \froot\ and the mean time of all test cases is  almost same.
+ 	  But we find a bug of  \MM\  during we test. In Table  \ref{tab:and} when $n=1024,1448,2096$  \inte's ouput that there a double. We analysis the reason for this \inte's failure is that \inte\ uses {\tt PossibleZeroQ} to check whether an expression is zero or not but  {\tt PossibleZeroQ} can not guarantee its output.}
  
- 
- As a  built-in \MM\ symbol, \inte\ is    compared with  our tool \froot. The  \MM\  we use has a version number 11.1. {\color{red} In some of cases \inte\ is faster than \froot, but we find a bug of  \MM\  during we test. In Table  \ref{tab:and} when $n=1024,1448,2096$  \inte's ouput that there a double. We analysis the reason for this \inte's failure is that \inte\ uses {\tt PossibleZeroQ} to check whether an expression is zero or not but  {\tt PossibleZeroQ} can not guarantee its output.}
- 
- 
- We also consider open software,  such as \cf\  \cite{hemmer09}, \AND\cite{Tsigaridas2016}, \SLV\cite{kobel2016computing}  which
+ {\color{red}
+ 	As the  Table \ref{tab:other} says that \froot\ is much than other solvers on $W_n$, the reason for this good performance is that   Algorithm \ref{alg:less} firstly check whether  $1$ is 
+ 	the upper bound and two real continuous roots of $W_n$ just differ $1$. This leads to equation of line 14 in Algorithm  \ref{alg:up}  aways holds.}
+
+
+ We also consider open software,  such as \cf\  \cite{hemmer09}, \AND\cite{Tsigaridas2016} and \SLV\cite{kobel2016computing}  which
  seem to be the fastest  open softwares  available for exact real root isolation. Many experiments  about  state of the art open software for isolating
- real roots have been done in \cite{hemmer09,Tsigaridas2016,kobel2016computing},  which  indicate that     \cf, \AND, \SLV\ 
+ real roots have been done in \cite{hemmer09,Tsigaridas2016,kobel2016computing},  which  indicate that     \cf, \AND\ and \SLV\
  are  the fastest in many cases.
  In our experiments, \froot\ is much faster than \cf. %We only consider a few of benchmarks with only simple roots as they can indicate  difference between two softwares.
  The comparative result can be found in
- Table \ref{tab:open}. {\color{red}\froot\ is speedup between $2$ and $200$ compare with \cf.  In Figure \ref{fig:r} and Figure \ref{fig:2}, \froot\ is about $4$ times faster than \AND\ and the maximum speedup is more than $15$.  Figure \ref{fig:3} plots the  compared 
- 	result between \froot\ and \SLV. As the figure show, \SLV, \froot\  is mean   $7$ times faster on  \SLV\ on $W_n,T_n,U_n,H_n,WP_n$. Under $MI_n$ polynomials \froot\ is little slow  than \SLV. }
- 
- 
+ Table \ref{tab:open}. \froot\ is speedup between $2$ and $200$ compared with \cf.  In Figure \ref{fig:newresult} and Table \ref{tab:other}, \froot\ is about $4$ times faster than \AND\ and {\color{red}\AND\ is better on polynomials $MR_n,MI_n$ which polynomials have two very close real roots}.  Figure \ref{fig:3} plots the  compared
+ 	result between \froot\ and \SLV. As the figure shows, \froot\  is $7$ times faster than  \SLV\ on $W_n,T_n,U_n,H_n,WP_n$ averagely and a little slower than \SLV\ on $MI_n$ polynomials.
+
+
   We also compare \froot\  with numerical methods  \eign\ \cite{eigsolev} and \sle\ \cite{hemmer09}. As \eign\ computes all the complex roots, we choose $W_n$, $mW_n$ and $IW_n$ as benchmarks with degrees ranging from 10 to 90, which have only real roots. \sle\ computes only real roots but it has weak stability. Its output on $W_{30}$ only has eight real roots, which is obviously wrong. \sle's running time\footnote{When  running time is very short we run every case for more than ten times and compute the mean.} on $W_{10}$ is $0.022$ seconds and
  $0.024$ seconds on $W_{20}$. In these two cases our software is about $7$ times faster than \sle. We compare \froot\ with  \eign\ and the results are  shown in Figure \ref{fig:1}.
  At the beginning when degree is $10$, the time costs of \froot\ and \eign\ are
@@ -172,17 +188,17 @@ Obviously, $n!L_n$ is a polynomial with integer coefficients.
 %\subsubsection*{ Randomly generated benchmarks}
 
 For randomly generated polynomials, we consider different settings of
-$(n,b,r)$ as shown in Figure \ref{fig:2}. For each setting $(n,b,r)$, we generate randomly five instances and  compute the mean of five running times. In almost every randomly generated benchmark our \froot\  is  faster than other  solvers. And We can also  find that
+$(n,b,r)$ as shown in Figure \ref{fig:2}. For each setting $(n,b,r)$, we generate randomly five instances and  compute the mean of five running times. In almost every randomly generated benchmark \froot\  is  faster than other  solvers. And we can also  find that
 degree is the main factor affecting the  running time.
 
-{\color{red} More test result can be found in
+More test results can be found at
 	
-	 \url{https://github.com/djuanbei/logcf/blob/master/testresult.xls}}
+	 \url{https://github.com/djuanbei/logcf/blob/master/testresult.xls}
 
-\begin{table}[H]
+\begin{table}
   \centering
   %\tbl{    compare with \cf  \label{tab:open}}{
-  \captionof{table}{ compare with \cf\ on old environment } \label{tab:open}
+  \captionof{table}{ compare with \cf\ under old environment } \label{tab:open}
   \begin{tabular}{|| c| c| c|| c|c| c||}
 \hline
 
@@ -215,7 +231,7 @@ $U_{200}$ & 4.15 &  0.12& $M_{1200}$ & 88 & 0.05 \\
 \end{table}
 
 
-\begin{figure}[!ht]
+\begin{figure}
 	\begin{centering}
 		\includegraphics[width=5.4in]{com}
 		\caption{ compare with numerical software  \eign\  on old environment\label{fig:1}}
@@ -225,49 +241,15 @@ $U_{200}$ & 4.15 &  0.12& $M_{1200}$ & 88 & 0.05 \\
 
 
 
-\begin{table}[H]
-	\centering
-	\captionof{table}{Run time(s) on $MR_n$ polynomails on new environment} 
-	\label{tab:and}
-	\begin{tabular}{|| c| c| c| c| c ||}
-		\hline
-		
-		\hline
-		\scriptsize{Degree}  &\ \  \ \ \ \ \scriptsize{\froot}\ \  \ \  \ \   & \scriptsize{\REALROOT} &\scriptsize{\inte}  &\ \   \ \    \scriptsize{\AND}\ \ \ \   \\
-		\hline
-		$128$ & 0.016 & 0.734 &  0.015 &  0.02\\
-		\hline
-		$181$ & 0.018 & 11.154 & 0.031 & 0.038\\
-		\hline
-		$256$ & 0.034 & 94.849&  0.046  & 0.063\\
-		\hline
-		$362$ & 0.083 & >600&  0.094 & 0.11\\
-		\hline
-		$512$ & 0.20 &  >600 & 0.219 & 0.20  \\
-		
-		\hline
-		$724$ & 0.55 &  >600&  0.344 & 0.42 \\
-		
-		\hline
-		$1024$ & 1.46 & >600& {\color{red}error} & 0.79 \\
-		
-		\hline
-		$1448$ & 6.48 &  >600&  {\color{red}error} &  1.69 \\
-		\hline
-		$2096$ & 24.19 &  >600&  {\color{red}error} & 3.16 \\	
-		\hline
-		
-		\hline
-	\end{tabular}%}
-\end{table}
-
-
-\begin{figure}[!ht]
+\begin{figure}
 	\begin{centering}
-		\includegraphics[width=4.4in,height=1.2in]{Tn}
-		\caption{ compare about solving ChebyshevT polynomials on new environment\label{fig:r}}
+		\includegraphics[width=4.4in,height=1.2in]{logcfslv}
+		\caption{ Mean running time with differ kinds of polynomials under old environment\label{fig:3}}
 	\end{centering}
 \end{figure}
+
+
+
 
 
 %\begin{figure}[!ht]
@@ -295,19 +277,83 @@ $U_{200}$ & 4.15 &  0.12& $M_{1200}$ & 88 & 0.05 \\
 %\end{figure}
 
 
-
-
-
-\begin{figure}[!ht]
-\begin{centering}
-\includegraphics[width=4.4in,height=1.2in]{Rn}
-\caption{ $R(n,b,r)$ benchmarks  with differ setting on new environment\label{fig:2}}
-\end{centering}
-\end{figure}
-
-\begin{figure}[!ht]
+\begin{figure}
 	\begin{centering}
-		\includegraphics[width=4.4in,height=1.2in]{logcfslv}
-		\caption{ Mean running time with differ kinds of polynomials on old environment\label{fig:3}}
+		\includegraphics[width=4.4in,height=1.2in]{Rn}
+		\caption{ $R(n,b,r)$ benchmarks  with differ setting on new environment\label{fig:2}}
 	\end{centering}
 \end{figure}
+
+
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=4.4in,height=1.2in]{newresult}
+		\caption{ Mean running time with differ kinds of polynomials under new environment\label{fig:newresult}}
+	\end{centering}
+\end{figure}
+
+\begin{table}
+	\centering
+	\captionof{table}{Mean running time with differ kinds of polynomials under new environment}
+	\label{tab:other}
+	\begin{tabular}{|| c| c| c| c||}
+		\hline
+		
+		\hline
+		\scriptsize{Case}  &\ \  \ \ \ \ \scriptsize{$\frac{\inte }{\froot}$}\ \  \ \ \ \ \  \ \   & \ \ \ \ \  \scriptsize{$\frac{\REALROOT}{\froot}$} \ \ \ \ \  &\ \ \ \  \scriptsize{ $\frac{\AND}{\froot}$ }  \ \ \ \   \\
+		\hline
+		$W_n$ & 8.7 & 18.04 &  202 \\
+		\hline
+		$MR_n$ & 0.70 & 980 & 0.174\\
+		\hline
+		$MI_n$ & 0.58 & 1.89&  0.0029  \\
+		\hline
+		
+		\hline
+	\end{tabular}%}
+\end{table}
+
+
+
+
+\begin{table}
+	\centering
+	\captionof{table}{Run time(s) on $MR_n$ polynomails under new environment}
+	\label{tab:and}
+	\begin{tabular}{|| c| c| c| c| c ||}
+		\hline
+		
+		\hline
+		\scriptsize{Degree}  &\ \  \ \ \ \ \scriptsize{\froot}\ \  \ \  \ \   & \scriptsize{\REALROOT} &\scriptsize{\inte}  &\ \   \ \    \scriptsize{\AND}\ \ \ \   \\
+		\hline
+		$128$ & 0.016 & 0.734 &  0.015 &  0.02\\
+		\hline
+		$181$ & 0.018 & 11.154 & 0.031 & 0.038\\
+		\hline
+		$256$ & 0.034 & 94.849&  0.046  & 0.063\\
+		\hline
+		$362$ & 0.083 & >600&  0.094 & 0.11\\
+		\hline
+		$512$ & 0.20 &  >600 & 0.219 & 0.20  \\
+		
+		\hline
+		$724$ & 0.55 &  >600&  0.344 & 0.42 \\
+		
+		\hline
+		$1024$ & 1.46 & >600 & error & 0.79 \\
+		
+		\hline
+		$1448$ & 6.48 &  >600&  error &  1.69 \\
+		\hline
+		$2096$ & 24.19 &  >600&  error & 3.16 \\	
+		\hline
+		
+		\hline
+	\end{tabular}%}
+\end{table}
+
+
+
+
+

@@ -55,7 +55,7 @@ The correctness of all the algorithms are based on Theorem  \ref{thm:des}. The p
 
 \begin{algorithm}
 \SetAlgoCaptionSeparator{.}
-\caption{\algm}
+\caption{\algm \label{alg:main}}
 \DontPrintSemicolon
 \KwIn{ A non-zero polynomial $p(x)\in \ZZ[x] $. }
 \KwOut{$I$  a set of real root isolating intervals of $p(x)$. }
@@ -68,12 +68,11 @@ $I$.addAll(\algcf($p$)); \;
 \tcc { add all the positive root intervals to set $I$ } \tcc{ \algcf\ is described as Algorithm \ref{alg:cf}}
 $p=-p$;\;
 $I$.addAll(\algcf($p$)); %\tcc{\algcf\ is described in Algorithm \ref{alg:cf}}
-\label{alg:main}
 \end{algorithm}
 
   Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. Therefore, Theorem \ref{thm:vin} guarantees the termination of these  procedures.
 
-\begin{definition} As in \cite{akr05}, we define the following transformations for a univariate polynomial $p(x)$.
+\begin{definition}  We define the following transformations for a univariate polynomial $p(x)$.
   \begin{eqnarray*}
   R(p(x))=x^n(p(\frac{1}{x})),\\
   H_\lambda(p(x))=p(\lambda x),\\
@@ -96,13 +95,12 @@ will still improve the performance of our method.
 
 \begin{algorithm}\label{alg:lb}
 \SetAlgoCaptionSeparator{.}
-\caption{\lb}
+\caption{\lb \label{alg:dec}}
 \DontPrintSemicolon
 \KwIn{ $p\in\ZZ[x] $. }
 \KwOut{$root\_lb$, a lower bound of positive roots of $p$. }
 $p=R(p)$;\;
 $root\_lb=$\up($p$); \tcc{\up\ is described as Algorithm \ref{alg:up}}
-\label{alg:dec}
 \end{algorithm}
 
 
@@ -117,5 +115,5 @@ $
 
 
 Using the above notations and definitions, an algorithm for isolating all the real roots of a nonzero univariate polynomial is described as Algorithm \ref{alg:main}.
-Algorithm \ref{alg:cf}, which has only a little modification of the algorithm in \cite{akr80,akr08}, is presented here to make our subsequent description clearer.
+Algorithm \ref{alg:cf}, which has only a little modification of the algorithm in \cite{akr08}, is presented here to make our subsequent description clearer.
 
