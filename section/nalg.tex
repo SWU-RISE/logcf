@@ -147,30 +147,29 @@ We shall show in Theorem \ref{thm:com1} that the bound given by Theorem \ref{thm
 \KwIn{ $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\in\ZZ[x], \exists a_i,a_na_i<0 $. }
 \KwOut{ true: the positive root bound of $p$ must be less than $1$;\\\ \ \ \ \ \ \ \ \ \ \ \ \ \    false: cannot determine whether the bound is less than $1$. }
 
-$start=n-1$;\;
-$lastNeg=0$;\;
+$start=n-1$;
+$lastNeg=0$;
 $hSign=\sign(a_n)$;\;
 
 \While{$\sign(a_{lastNeg})+hSign\neq 0$ }{
   $lastNeg=lastNeg+1$;\;
 }
 
-\While{$\sign(a_{start})+hSign\neq 0$ }{
+\While{$  \sign(a_{start})+hSign\neq 0 $ }{
   $start=start-1$;\;
 }
 $cfSum=\abs(a_n)$;
 $i=n-1$;
-$j=start$;
-$last=start$;\;
+$j=start$;\;
 \While{$i\ge lastNeg-1 \text{ and } j\ge lastNeg-1$}
 {
 	\If{$\sign(cfSum)<0$}
 	{
-	  \While{$i>last\text{ and } \sign(a_i)\neq hSign$ }{
+	  \While{$i>j\text{ and } \sign(a_i)\neq hSign$ }{
 		$i=i-1$;
 	  }
 
-	 \lIf{$i= = last$}{
+	 \lIf{$i= = j$}{
 	   \Return {false;}
 	 }
 	 $cfSum=cfSum+\abs(a_i)$;
@@ -183,13 +182,18 @@ $last=start$;\;
 	  \While{$j\ge lastNeg \text{ and } \sign(a_j)+hSign\neq 0$ }{
 		$j=j-1$;
 	  }
-	  $cfSum=cfSum-\abs(a_j)$;\;
-	  $last=j$; $j=j-1$;\;
+	  $cfSum=cfSum-\abs(a_j)$; $j=j-1$;\;
 	}
 }
 \Return {true; }
 
 \end{algorithm}
+The reasons of Algorithm \ref{alg:less}'s right as follow: 
+W.l.o.g. set $a_n>0$ then after program reaches Algorithm \ref{alg:less}'s line $6$ we have \[\underbrace{a_n}_{+},\underbrace{\underbrace{a_{n-1}}_{*}}_{i},\underbrace{\cdots}_{*,\cdots,*},\underbrace{a_{start+1}}_{+},\underbrace{\underbrace{a_{start}}_{-}}_{j},\underbrace{a_{start-1}}_{*},\underbrace{\cdots}_{*,\cdots,*},\underbrace{a_{lastNeg+1}}_{*},\underbrace{a_{lastNeg}}_{-},\underbrace{a_{lastNeg-1}}_{+},\underbrace{\cdots}_{+,\cdots,+},\]
+where "$+$" denotes corresponding $a_k$ is positive, "$-$" denotes corresponding $a_k$ is negative and "$*$" denotes the sign of 
+corresponding $a_k$ is unknown.
+The loop between line $7$ and $17$ in Algorithm \ref{alg:less} program right shifts $i$ and $j$ until one of them reaches value $lastNeg-1$. If $j$ firstly  reaches value $lastNeg-1$ at line $14$,  it is easy to check assert $i\ge j\wedge cfSum\ge 0$ always holds in this iteration. In other words, $\sum_{k=l}^na_k\ge 0$ for $l=m,\cdots,lastNeg-1$. As $a_{k}>0$ for $k=0,\cdots, lastNeg-1$, $\sum_{k=l}^na_k\ge 0$ for $i=0,1,\cdots, n$. Apply Theorem  \ref{thm:log},  $1$ is one of upper bound  of $p$'s positive real roots.
+
 
 \begin{theorem}\label{thm:com}
 	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and   $u$ denote an upper bound of positive roots of $p$ obtained by Theorem \ref{thm:qup}, then $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
@@ -242,7 +246,7 @@ $hSign=\sign(a_n)$;
 $base=1$;\;
 
 \lIf{$\neg$\less($p$) }{
-  return $2$;
+  return $2$; \tcc{$2$ is a special vaalue which leads Algorithm \ref{alg:cf} to run line $6$ branch.}
 }
 \While{$\sign(a_{lastNeg})+hSign\neq 0$ }{
   $lastNeg=lastNeg+1$;\;
@@ -275,7 +279,7 @@ $i=n$;\;
 	   }\Else{
 
 		 \lIf{$j= = lastNeg-1$ }{
-			$j=lastNeg-2$;
+			$j=lastNeg-2$;\tcc{ $lastNeg-2$ is a special value which leads program to run $23$ branch.}
 			break;
 		 }
 
@@ -288,7 +292,7 @@ $i=n$;\;
 	   }
 
   }
-  \If{$j= = lastNeg-2$}{
+  \lIf{$j= = lastNeg-2$}{
 	$base=base+1$;
 	$i=n$;\;
   }
