@@ -1,5 +1,6 @@
 
 \section{Algorithm based on  continued fraction}
+\label{sec:contalg}
 In this section, we first recall Descartes' rule of signs, which gives a bound on the number of positive real roots. Then the Vincent theorem, which  ensures
 the termination of algorithms based on  continued fraction, is presented. Finally, we review an algorithm of real root isolation based on  continued fraction.
 %and the using the notation of \cite{akr05}.
@@ -63,43 +64,48 @@ $I=\emptyset$; \;
 \If {$\deg(p)= = 0$} {return $I$;}
 $P=\frac{p}{\gcd(p,p')}$; \tcc{ square free}
 \If {$p(0)= = 0$ } { $I.add([0,0])$; \tcc{ add $[0,0]$ to set $I$}
-\dec($p$); \tcc {Algorithm \ref{alg:dec}} }
+\rev{$p=D(p$);} %\tcc {\rev{Algorithm \ref{alg:dec}}} 
+}
 $I$.addAll(\algcf($p$)); \;
 \tcc { add all the positive root intervals to set $I$ } \tcc{ \algcf\ is described as Algorithm \ref{alg:cf}}
-$p=-p$;\;
-$I$.addAll(\algcf($p$)); %\tcc{\algcf\ is described in Algorithm \ref{alg:cf}}
+\rev{$p=p(-x)$};\;
+\rev{$I$.addAll(-\algcf($p$))}; %\tcc{\algcf\ is described in Algorithm \ref{alg:cf}}
 \end{algorithm}
 
-  Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. Therefore, Theorem \ref{thm:vin} guarantees the termination of these  procedures.
+  Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. \rev{Informally,  above map is magnifying the considered interval  to $(0,+\infty)$. When $V(p)=1$, then the interval contain exact one real root by {\em Descartes' rule of signs}. When $V(p)>1$, in other words, it can not make sure how many real roots are contained in this interval, then we divide the consider interval into two sub-intervals. Repeating this procedure we can 
+  	 part 
+  	the original interval into samller sub-intervals until  there is no sub-interval contain more than one  real root. 
+  	
+  }
+  
+  
+    Therefore, Theorem \ref{thm:vin} guarantees the termination of these  procedures.
 
-\begin{definition}  We define the following transformations for a univariate polynomial $p(x)$.
+\begin{definition}  We define the following transformations for a univariate polynomial $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0,n>0$.
   \begin{eqnarray*}
-  R(p(x))=x^n(p(\frac{1}{x})),\\
-  H_\lambda(p(x))=p(\lambda x),\\
-  T(p(x))=p(x+1).
+  lc(p(x))&=&a_n,\\
+  R(p(x))&=&x^n(p(\frac{1}{x})),\\
+  H_\lambda(p(x))&=&p(\lambda x),\\
+  T(p(x))&=&p(x+1), \\
+  D(p(x))&=&a_nx^{n-1}+a_{n-1}x^{n-2}+\cdots+a_2x+a_1.
   \end{eqnarray*}
 \end{definition}
 
 $T(p)$  is also called	Taylor shift one \cite{ger04,joh05}. In our experiments when Algorithm \ref{alg:up} is used for computing upper bounds, $T(p)$  takes  more than
 ninety percent of running time\footnote{the result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but   finally we chose the  classical
-method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think this substituting
+method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think \rev{further} substituting
 will still improve the performance of our method.
+
+
 
 \begin{algorithm}
 \SetAlgoCaptionSeparator{.}
-\caption{\dec}
+\caption{\lb \label{alg:lb}}
 \DontPrintSemicolon
-\KwIn{ $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0,n>0 $. }
-\KwOut{$p=a_nx^{n-1}+a_{n-1}x^{n-2}+\cdots+a_2x+a_1$ . }
-\end{algorithm}
-
-\begin{algorithm}\label{alg:lb}
-\SetAlgoCaptionSeparator{.}
-\caption{\lb \label{alg:dec}}
-\DontPrintSemicolon
-\KwIn{ $p\in\ZZ[x] $. }
+\KwIn{ $p\in\ZZ[x],lc(p)\neq 0 $. }
 \KwOut{$root\_lb$, a lower bound of positive roots of $p$. }
 $p=R(p)$;\;
+\lIf{$lc(p)<0$}{	$p=-p$;} 
 $root\_lb=$\up($p$); \tcc{\up\ is described as Algorithm \ref{alg:up}}
 \end{algorithm}
 
@@ -115,5 +121,72 @@ $
 
 
 Using the above notations and definitions, an algorithm for isolating all the real roots of a nonzero univariate polynomial is described as Algorithm \ref{alg:main}.
-Algorithm \ref{alg:cf}, which has only a little modification of the algorithm in \cite{akr08}, is presented here to make our subsequent description clearer.
+Algorithm \ref{alg:cf}, which \rev{is a slight}   modification of the algorithm in \cite{akr08}, is presented here to make our subsequent description clearer.
+
+
+
+
+\begin{algorithm}
+	\SetAlgoCaptionSeparator{.}
+	\caption{\algcf \label{alg:cf}}
+	\DontPrintSemicolon
+	\KwIn{ A squarefree polynomial $f \in \ZZ[x] \setminus \{0\}$. }
+	\KwOut{ $roots$, a list of isolating intervals of positive roots of $f$. }
+	
+	$roots=\emptyset$;
+	$s=V(f)$;\;
+	%  \If {$s \equiv 0$}{ \Return { $roots$}; }
+	
+	% \If {$s\equiv 1$} {\Return { $(0,\infty)$}; }
+	$intstack=\emptyset$;
+	$intstack$.add($\{1,0,0,1,f,s\}$);\;
+	\While{$intstack\neq \emptyset$} {
+		$\{a,b,c,d,p,s\}=intstack.$pop();\tcc{pop  the first element}
+		$\alpha=\lb(p)$;\;
+		\lIf{$\alpha\ge1$ }{
+			$\{ a,c,p \}=\{ \alpha  a,\alpha c ,H_\alpha(p) \}$;
+			$\{ b,d,p \}=\{   a+b,c+d ,T(p) \}$;\;
+			\lIf { $p(0)= = 0$}{
+				$roots$.add$([\frac{b}{d},\frac{b}{d}])$ ;
+				$p=\frac{p}{x}$;}
+			$s=V(p)$;
+			\lIf {$s= = 0$}{
+				continue;
+			}
+			\lElseIf{$s= = 1$}{		
+				$roots$.add($intvl(a,b,c,d)$);
+				continue;
+			}
+		}
+		$ \left\{ p_1,a_1,b_1,c_1,d_1,r \right\}=\left\{ T(p),a,a+b,c,c+d,0 \right\}$
+		
+		\lIf{$p_1(0)= =0$}{
+			$roots$.add($[\frac{b_1}{d_1},\frac{b_1}{d_1}]$);
+			$p_1=\frac{p_1}{x};r=1$;
+		}
+		$s_1=V(p_1)$;
+		$\left\{ s_2,a_2,b_2,c_2,d_2 \right\}=\left\{ s-s_1-r,b,a+b,d,c+d \right\}$;
+		%$ s_2 = s- s_1 - r; a_2 = b; b_2 = a + b; c_2 = d; d_2 = c + d$;\;
+		\lIf {$s_2>1$ }{
+			$ p_2= (x+1)^{\deg(p)}T(p)$;\;
+			\lIf {$p_2(0)= = 0$}{
+				$p_2=\frac{p_2}{x}$;
+				$s_2=V(p_2)$;
+			}
+		}
+		\lIf{$s_1= = 1$ }{
+			$roots$.add($intvl(a_1,b_1,c_1,d_1)$);\;
+		}
+		\lElseIf{$s_1>1$ }{
+			$intstack$.add($\{a_1,b_1,c_1,d_1,p_1,s_1\}$);\;
+		}
+		
+		\lIf{$s_2= = 1$}{
+			$roots$.add($intvl(a_2,b_2,c_2,d_2)$);\;
+		}
+		\lElseIf{$s_2>1$ }{
+			$intstack$.add($\{a_2,b_2,c_2,d_2,p_2,s_2\}$);\;
+		}
+	}
+\end{algorithm}
 
