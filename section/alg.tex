@@ -1,9 +1,9 @@
 
 \section{Algorithm based on  continued fraction}
 \label{sec:contalg}
-In this section, we first recall Descartes' rule of signs, which gives a bound on the number of positive real roots. Then the Vincent theorem, which  ensures
+In this section, we first recall {\em Descartes' rule of signs}, which gives a bound on the number of positive real roots. Then the {\em Vincent theorem}, which  ensures
 the termination of algorithms based on  continued fraction, is presented. Finally, we review an algorithm of real root isolation based on  continued fraction.
-%and the using the notation of \cite{akr05}.
+
 
 As usual, $\deg(p)$ denotes the degree of univariate polynomial $p$. The derivative of polynomial $p$ with respect to the only variable is denoted by $p'$ and $\gcd(f,g)$ means the greatest common divisor of polynomials $f$ and $g$.
 
@@ -73,7 +73,7 @@ $I$.addAll(\algcf($p$)); \;
 \end{definition}
 
 $T(p)$  is also called	Taylor shift one \cite{ger04,joh05}. In our experiments when {\em Algorithm \ref{alg:up}} is used for computing upper bounds, $T(p)$  takes  more than
-ninety percent of running time\footnote{the result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but   finally we chose the  classical
+ninety percent of running time\footnote{The result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but   finally we chose the  classical
 method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think \rev{further} substituting
 will still improve the performance of our method.
 
