@@ -131,9 +131,9 @@ Continued fraction based procedures will continue subdividing the considered int
 	$intstack$.add($\{1,0,0,1,p,s\}$);\;
 	\While{$intstack\neq \emptyset$} {
 		$\{a,b,c,d,p,s\}=intstack.$pop();\tcc{pop  the first element}
-		$\gamma=\lb(p)$;\;
-		\lIf{$\gamma \ge 1$ }{
-			$\{ a,c,p \}=\{ \gamma  a,\gamma c ,H_\gamma(p) \}$;
+		$\lambda=\lb(p)$;\;
+		\lIf{$\lambda \ge 1$ }{
+			$\{ a,c,p \}=\{ \lambda  a,\lambda c ,H_\lambda(p) \}$;
 			$\{ b,d,p \}=\{   a+b,c+d ,T(p) \}$;\;
 			\lIf { $p(0)= = 0$}{
 				$roots$.add$([\frac{b}{d},\frac{b}{d}])$ ;
