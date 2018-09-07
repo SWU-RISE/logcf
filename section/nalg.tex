@@ -3,7 +3,7 @@
 \section{A  upper bounds of the positive real roots for giving  polynomials}
 \label{sec:thm}
 
-One key ingredient of continued fraction based methods is the computation of upper bounds of the positive real roots for giving  polynomials. We give in Theorem \ref{thm:log} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, Algorithm \ref{alg:up}, is proposed for computing upper bounds of positive real roots.
+One key ingredient of continued fraction based methods is the computation of upper bounds of the positive real roots for giving  polynomials. We give in {\em Theorem \ref{thm:log}} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, {\em Algorithm \ref{alg:up}}, is proposed for computing upper bounds of positive real roots.
 
 
 \begin{theorem} \label{thm:log}
@@ -64,34 +64,31 @@ The following theorem was given by Akritas et al. in  \cite{akr08}, which comput
 
 \end{theorem}
 
-%\textbf{ Theorem \ref{thm:log} , \ref{thm:qup} all describe the properties of upper bounds of positive real roots. We will claim that all the upper bounds obtain by Theorem
-%\ref{thm:qup}  also satisfies Theorem \ref{thm:log} by below theorem. So if there has a method which can work out the  optimal upper bound satisfying Theorem \ref{thm:log}, it will at least better than any method based on Theorem \ref{thm:qup} when only consider the sharp of upper bound.}
-
-
-We shall show in Theorem \ref{thm:com1} that the bound given by Theorem \ref{thm:log} is better than that given by Theorem \ref{thm:qup}.
 
 
 
-% \textbf{ What's more, some time  the  optimal upper bound satisfying Theorem \ref{thm:log}, is sharper than the bound obtain by Theorem \ref{thm:qup}. }
+We shall show in {\em Theorem \ref{thm:com1}} that the bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
+
+
+
+
 
 
 
 
 
 \begin{theorem}\label{thm:com}
-	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and   $u$ denote an upper bound of positive roots of $p$ obtained by Theorem \ref{thm:qup}, then $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
+	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and   $u$ denote an upper bound of positive roots of $p$ obtained by {\em Theorem \ref{thm:qup}}, then $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
 	
 \end{theorem}
 
 \begin{proof}
-	%Set $u$ obtains after break up and    permutation of the positive coefficients $c_{2i-1,j}, $ $j=1,2,\ldots,t_{2i-1}$ for  $i=1,2,\ldots,m$.
+
+	For every $ a_i<0$, by {\em Theorem \ref{thm:qup}}, there exist  $c_{i_1}x^{e_{i_1}}$ and $b_{i_2}x^{e_{i_2}},$  respectively, such that
+	$e_{i_1}>e_{i_2}$ and $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$. By  {\em Theorem \ref{thm:qup}} $b_{i_2}x^{e_{i_2} }$ is the term $-a_ix^i$
+	and $c_{i_1}x^{e_{i_1} }$ is either a whole or a part (broken up by {\em Theorem \ref{thm:qup}}) of a positive term of $p$.
 	
-	%For any $k\in n-1,n-2,\ldots,0$.
-	For every $ a_i<0$, by Theorem \ref{thm:qup}, there exist  $c_{i_1}x^{e_{i_1}}$ and $b_{i_2}x^{e_{i_2}},$  respectively, such that
-	$e_{i_1}>e_{i_2}$ and $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$. By  Theorem \ref{thm:qup} $b_{i_2}x^{e_{i_2} }$ is the term $-a_ix^i$
-	and $c_{i_1}x^{e_{i_1} }$ is either a whole or a part (broken up by Theorem \ref{thm:qup}) of a positive term of $p$.
-	
-	For every  $a_j>0$, by Theorem \ref{thm:qup}, $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So \begin{dmath*}\sum_{i=k}^na_iu^i\ge \sum_{i=k,a_i<0}^n \left( c_{i_1}u^{e_{i_1}}-
+	For every  $a_j>0$, by {\em Theorem \ref{thm:qup}}, $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So \begin{dmath*}\sum_{i=k}^na_iu^i\ge \sum_{i=k,a_i<0}^n \left( c_{i_1}u^{e_{i_1}}-
 		b_{i_2}u^{e_{i_2}} \right)\ge 0 \end{dmath*} for any $k= 0,1,\ldots,n$. Then $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and
 	$\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
 \end{proof}
@@ -99,11 +96,11 @@ We shall show in Theorem \ref{thm:com1} that the bound given by Theorem \ref{thm
 \begin{theorem}\label{thm:com1}
 	
 	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients. Let  $u_1$ denote the optimal upper bound of
-	positive real roots satisfying Theorem \ref{thm:log} and $u_2$ denote the optimal upper bound of positive real roots satisfying Theorem \ref{thm:qup}, then $u_1\le u_2$ and the  strict inequality can hold.
+	positive real roots satisfying {\em Theorem \ref{thm:log}} and $u_2$ denote the optimal upper bound of positive real roots satisfying {\em Theorem \ref{thm:qup}}, then $u_1\le u_2$ and the  strict inequality can hold.
 \end{theorem}
 
 \begin{proof}
-	By Theorem \ref{thm:com}, $u_1\le u_2$.
+	By {\em Theorem \ref{thm:com}}, $u_1\le u_2$.
 	Let $p(x)=x^2+x-2$. Then $u_2=\sqrt{2}$ and $u_1=1$. So
 	$u_1<u_2$ for this \rev{$p$}.
 \end{proof}

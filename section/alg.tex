@@ -19,32 +19,18 @@ Let $S=\left\{ a_0,a_1,\ldots,a_n \right\}$ be a finite sequence of non-zero rea
 If some elements of $S$ are zero, remove those zero-elements to get a new sequence and define $V(S)$ to be the sign variation of this new sequence.
 \end{note}
 
-%\begin{note}
-%  $\deg(p)$: The degree of polynomial $p$. $p'$: the derivative of polynomial $p$ with respect to the only variable. $\gcd(f,g)$: The greatest common divisor of polynomials $f$ and $g$.
-%\end{note}
 
 
 
-%Using the above notations, we recall Descarts' rule of signs:
+
 
 \begin{theorem}[Descartes' rule of signs] \label{thm:des}
   Suppose $p=\sum_{i=0}^na_ix^i\in\RR[x]$ has $m$ positive real roots, counted with multiplicity. Set $V(p)=V(a_0,a_1,\ldots,a_n)$. Then $m\le V(p)$, and $V(p)-m$ is even.
 \end{theorem}
 
-%For a polynomial $p\in \RR[x]$, modern algorithm map the considered interval to $(0,\infty)$ to get a polynomial $p_1$  and guarantee  that two polynomials' real roots have one-to-one correspondence. Theorem \ref{thm:des} gives a upper bound of number of
-%positive real roots, which can guarantee the correctness of Continued Fractions algorithm.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- \begin{comment}
-A modern version of the algorithm has been invented by \cite{collin76}. The original method  firstly map all the positive real roots in $(0,1)$, then use bisection strategy and show
-that if transformations $H_{\frac{1}{2}}$ and $H_{\frac{1}{2}}T$ are applied iteratively on any square-free polynomial $P$, one obtain, after a finite number of transformations,
-a polynomial $Q$ such that $V(Q)\le 1$. \cite{akr80} modify the subdivision strategy, simply say, it recursion  computer the lower bound $b$ of positive real roots and shift
-$x\leftarrow x+b$, then  first search the real roots in interval $(0,1]$ later in interval $(1,+\infty)$. Until all the positive real roots been found.
 
-The correctness of all the algorithms are based on Theorem  \ref{thm:des}. The proof of the termination and complexity computation of their algorithms is base on the following theorems:
-\end{comment}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -61,25 +47,21 @@ The correctness of all the algorithms are based on Theorem  \ref{thm:des}. The p
 \KwIn{ A non-zero polynomial $p(x)\in \ZZ[x] $. }
 \KwOut{$I$  a set of real root isolating intervals of $p(x)$. }
 $I=\emptyset$; \;
-\If {$\deg(p)= = 0$} {return $I$;}
+\If {$\deg(p)$  equals to $0$}  {return $I$;}
 $P=\frac{p}{\gcd(p,p')}$; \tcc{ square free}
-\If {$p(0)= = 0$ } { $I.add([0,0])$; \tcc{ add $[0,0]$ to set $I$}
-\rev{$p=D(p$);} %\tcc {\rev{Algorithm \ref{alg:dec}}} 
+\If {$p(0)$   equals to  $0$ } { $I.add([0,0])$; \tcc{ add $[0,0]$ to set $I$}
+\rev{$p=D(p$);} 
 }
 $I$.addAll(\algcf($p$)); \;
-\tcc { add all the positive root intervals to set $I$ } \tcc{ \algcf\ is described as Algorithm \ref{alg:cf}}
+\tcc { add all the positive root intervals to set $I$ } \tcc{ \algcf\ is described as {\em Algorithm \ref{alg:cf}}}
 \rev{$p=p(-x)$};\;
-\rev{$I$.addAll(-\algcf($p$))}; %\tcc{\algcf\ is described in Algorithm \ref{alg:cf}}
+\rev{$I$.addAll(-\algcf($p$))}; 
 \end{algorithm}
 
-  Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. \rev{Informally,  above map is magnifying the considered interval  to $(0,+\infty)$. When $V(p)=1$, then the interval contain exact one real root by {\em Descartes' rule of signs}. When $V(p)>1$, in other words, it can not make sure how many real roots are contained in this interval, then we divide the consider interval into two sub-intervals. Repeating this procedure we can 
-  	 part 
-  	the original interval into samller sub-intervals until  there is no sub-interval contain more than one  real root. 
-  	
-  }
-  
-  
-    Therefore, Theorem \ref{thm:vin} guarantees the termination of these  procedures.
+  Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. \rev{Informally, {\em Algorithm \ref{alg:main}} is employing  above map to magnify the considered interval  to $(0,+\infty)$.  Through {\em Descartes' rule of signs}, there is no positive real root if  $V(p)=0$. In this case we throw away the interval from the considered intervals set.   When $V(p)=1$, then the interval contain exact one real root by {\em Descartes' rule of signs}. In this case we throw away the interval from the considered intervals set. When $V(p)>1$, in other words, it can not make sure how many real roots are contained in this interval, then we divide the considered interval into two subintervals. In this case we throw away the interval from the considered intervals set and add two subintervals to the considered intervals set.  Repeating this procedure  we can 
+  	 divide 	the  interval into  subintervals until  there is no size of  the corresponding original interval greater or equal to $\delta$ for interval in onsidered intervals set.   Then there is at most one real root in every interval in considered interval set and the procedure will terminal. This is also
+  	 the reason of why}
+  {\em Theorem \ref{thm:vin}}  can guarantee the termination of {\em Algorithm \ref{alg:main}}.
 
 \begin{definition}  We define the following transformations for a univariate polynomial $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0,n>0$.
   \begin{eqnarray*}
@@ -91,7 +73,7 @@ $I$.addAll(\algcf($p$)); \;
   \end{eqnarray*}
 \end{definition}
 
-$T(p)$  is also called	Taylor shift one \cite{ger04,joh05}. In our experiments when Algorithm \ref{alg:up} is used for computing upper bounds, $T(p)$  takes  more than
+$T(p)$  is also called	Taylor shift one \cite{ger04,joh05}. In our experiments when {\em Algorithm \ref{alg:up}} is used for computing upper bounds, $T(p)$  takes  more than
 ninety percent of running time\footnote{the result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but   finally we chose the  classical
 method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think \rev{further} substituting
 will still improve the performance of our method.
@@ -106,7 +88,7 @@ will still improve the performance of our method.
 \KwOut{$root\_lb$, a lower bound of positive roots of $p$. }
 $p=R(p)$;\;
 \lIf{$lc(p)<0$}{	$p=-p$;} 
-$root\_lb=$\up($p$); \tcc{\up\ is described as Algorithm \ref{alg:up}}
+$root\_lb=$\up($p$); \tcc{\up\ is described as {\em Algorithm \ref{alg:up}}}
 \end{algorithm}
 
 
@@ -120,8 +102,8 @@ $
 \end{definition}
 
 
-Using the above notations and definitions, an algorithm for isolating all the real roots of a nonzero univariate polynomial is described as Algorithm \ref{alg:main}.
-Algorithm \ref{alg:cf}, which \rev{is a slight}   modification of the algorithm in \cite{akr08}, is presented here to make our subsequent description clearer.
+Using the above notations and definitions, an algorithm for isolating all the real roots of a nonzero univariate polynomial is described as {\em Algorithm \ref{alg:main}}.
+{\em Algorithm \ref{alg:cf}}, which \rev{is a slight}   modification of the algorithm in \cite{akr08}, is presented here to make our subsequent description clearer.
 
 
 
