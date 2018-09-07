@@ -78,7 +78,7 @@ method (Horner's method) for its simplicity. In future work we will use Divide \
 will still improve the performance of our method.
 
 
-\rev{{\em Vincent's theorem} provides  a possible method to isolate the real roots. But it needs to divide all $\RR$ to small many intervals and the width of these intervals is smaller than a given  finite value. Hence, it can not   directly use {\em Vincent's theorem} to isolate the real roots. For employing  {\em Vincent's theorem}, we need to discard  the interval which can make sure there is no the real root in it. {\em Algorithm \ref{alg:lb}} provide a lower  bound $lu$ of positive roots of given $p$, then interval  $(0,lb)$ contains no the real roots, so we can safely  discard
+\rev{{\em Vincent's theorem} provides  a possible method to isolate the real roots. But it needs to divide all $\RR$ to small many intervals and the width of these intervals is smaller than a given  finite value. Hence, it can not   directly use {\em Vincent's theorem} to isolate the real roots. For employing  {\em Vincent's theorem}, we need to discard  the interval which can make sure there is no the real root in it. {\em Algorithm \ref{alg:lb}} provide a lower  bound $lu$ of positive roots for given $p$, then interval  $(0,lb)$ contains no the real roots, so we can safely  discard
 	$(0,lb)$ when isolate the real roots. }
 
 
@@ -121,21 +121,19 @@ Continued fraction based procedures will continue subdividing the considered int
 	\SetAlgoCaptionSeparator{.}
 	\caption{\algcf \label{alg:cf}}
 	\DontPrintSemicolon
-	\KwIn{ A squarefree polynomial $f \in \ZZ[x] \setminus \{0\}$. }
-	\KwOut{ $roots$, a list of isolating intervals of positive roots of $f$. }
+	\KwIn{ A squarefree polynomial $p \in \ZZ[x] \setminus \{0\}$. }
+	\KwOut{ $roots$, a list of isolating intervals of positive roots of $p$. }
 	
 	$roots=\emptyset$;
-	$s=V(f)$;\;
-	%  \If {$s \equiv 0$}{ \Return { $roots$}; }
-	
-	% \If {$s\equiv 1$} {\Return { $(0,\infty)$}; }
+	$s=V(p)$;\;
+
 	$intstack=\emptyset$;
-	$intstack$.add($\{1,0,0,1,f,s\}$);\;
+	$intstack$.add($\{1,0,0,1,p,s\}$);\;
 	\While{$intstack\neq \emptyset$} {
 		$\{a,b,c,d,p,s\}=intstack.$pop();\tcc{pop  the first element}
-		$\alpha=\lb(p)$;\;
-		\lIf{$\alpha\ge1$ }{
-			$\{ a,c,p \}=\{ \alpha  a,\alpha c ,H_\alpha(p) \}$;
+		$\gamma=\lb(p)$;\;
+		\lIf{$\gamma \ge 1$ }{
+			$\{ a,c,p \}=\{ \gamma  a,\gamma c ,H_\gamma(p) \}$;
 			$\{ b,d,p \}=\{   a+b,c+d ,T(p) \}$;\;
 			\lIf { $p(0)= = 0$}{
 				$roots$.add$([\frac{b}{d},\frac{b}{d}])$ ;
