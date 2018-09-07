@@ -1,0 +1,168 @@
+\section{A new algorithm of computing upper bounds}
+\label{sec:alg}
+\rev{ In this section we will give a new algorithm of computing upper bounds. The correction of this new algorithm is guarantee by the theoretically
+	results in section \ref{sec:thm}. }
+
+
+\begin{algorithm}
+	\SetAlgoCaptionSeparator{.}
+	\caption{\less \label{alg:less}}
+	\DontPrintSemicolon
+	\KwIn{ $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\in\ZZ[x], a_n>0,\ \exists a_i,a_na_i<0 $. }
+	\KwOut{ true: the positive root bound of $p$ must be less than $1$;\\\ \ \ \ \ \ \ \ \ \ \ \ \ \    false: cannot determine whether the bound is less than $1$. }
+	
+	$start=n-1$;
+	$lastNeg=0$;\;
+	
+	\While{$a_{lastNeg}\ge 0$ }{
+		$lastNeg=lastNeg+1$;\;
+	}
+	
+	\While{$  a_{start}\ge  0 $ }{
+		$start=start-1$;\;
+	}
+	$cfSum=a_n$;
+	$i=n-1$;
+	$j=start$;\;
+	\While{$i\ge lastNeg-1 \text{ and } j\ge lastNeg-1$}
+	{
+		\If{$cfSum<0$}
+		{
+			\While{$i>j\text{ and } a_i\le 0$ }{
+				$i=i-1$;
+			}
+			
+			\lIf{$i= = j$}{
+				\Return {false;}
+			}
+			$cfSum=cfSum+a_i$;
+			$i=i-1$;\;
+			
+		}\Else{
+		\lIf{$j= = lastNeg-1$ }{
+			\Return{ true;}
+		}
+		\While{$j\ge lastNeg \text{ and }a_j\ge 0 $ }{
+			$j=j-1$;
+		}
+		$cfSum=cfSum+a_j$; $j=j-1$;\;
+	}
+}
+\Return {true; }
+
+\end{algorithm}
+The reasons of {\em Algorithm \ref{alg:less}}'s right as follow: 
+W.l.o.g. set $a_n>0$ then after program reaches {\em Algorithm \ref{alg:less}}'s line $6$ we have \[\underbrace{a_n}_{+},\underbrace{\underbrace{a_{n-1}}_{+_0}}_{i},\underbrace{\cdots}_{+_0,\cdots,+_0},\underbrace{a_{start+1}}_{+},\underbrace{\underbrace{a_{start}}_{-}}_{j},\underbrace{a_{start-1}}_{*},\underbrace{\cdots}_{*,\cdots,*},\underbrace{a_{lastNeg+1}}_{*},\underbrace{a_{lastNeg}}_{-},\underbrace{a_{lastNeg-1}}_{+_0},\underbrace{\cdots}_{+_0,\cdots,+_0},\]
+where "$+$" denotes the corresponding $a_k$ is positive, "$-$" denotes the corresponding $a_k$ is negative, "$*$" denotes the sign of the
+corresponding $a_k$ is unknown and  "$+_0$" denotes the corresponding $a_k$ is nonnative. 
+The loop between line $7$ and $17$ in {\em Algorithm \ref{alg:less}} program  \rev{shifts $i$ and $j$ right} until one of them reaches value $lastNeg-1$. If $j$ firstly  reaches value $lastNeg-1$ at line $14$,  it is easy to check assert $i\ge j\wedge cfSum\ge 0$ always holds in this iteration. In other words, $\sum_{k=l}^na_k\ge 0$ for \rev{$l=lastNeg,\cdots,n$}. As $a_{k}>0$ for $k=0,\cdots, lastNeg-1$, $\sum_{k=l}^na_k\ge 0$ for \rev{$l=0,1,\cdots, n$}. Apply {\em Theorem  \ref{thm:log}},  $1$ is one of upper bound  of $p$'s positive real roots.
+
+
+
+
+\begin{algorithm}[H]
+	\SetAlgoCaptionSeparator{.}
+	\caption{\up \label{alg:up}}
+	\DontPrintSemicolon
+	\KwIn{$p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\in\ZZ[x], a_n>0,\ \exists a_i,a_na_i<0. $ }
+	\KwOut{ an upper bound of the positive roots of $p$. }
+	$start=n-1$;
+	$lastNeg=0$;
+	$base=1$;\;
+	
+	\lIf{$\neg$\less($p$) }{
+		return $2$; \tcc{$2$ is a special \rev{value} which leads {\em Algorithm \ref{alg:cf}} to run line $6$ branch.}
+	}
+	\While{$a_{lastNeg}\ge  0$ }{
+		$lastNeg=lastNeg+1$;\;
+		
+	}
+	
+	\While{$a_{start}\ge  0$ }{
+		$start=start-1$;\;
+		
+	}
+	
+	$i=n$;\;
+	\While{$i= = n$}{
+		
+		$i=n-1$;
+		$j=start$;
+		$cfSum=a_n$;\;
+		
+		\While{$i\ge lastNeg-1 \text{ and } j\ge lastNeg-1$}{
+			\If{$cfSum<0$}
+			{
+				\While{$i>j\text{ and } a_i\le 0$ }{
+					$i=i-1$;
+				}
+				\lIf {$i= = j$}{
+					break;
+				}
+				$cfSum=cfSum+a_i2^{(n-i)base}$;
+				$i=i-1$;\;
+			}\Else{
+			
+			\lIf{$j= = lastNeg-1$ }{
+				$j=lastNeg-2$;\tcc{ $lastNeg-2$ is a special value which leads program to run $23$ branch.}
+				break;
+			}
+			
+			\While{$j\ge lastNeg \text{ and } a_j\ge 0$ }{
+				$j=j-1$;
+			}
+			
+			$cfSum=cfSum+a_j2^{(n-j)base}$;
+			$j=j-1$;\;
+		}
+		
+	}
+	\lIf{$j= = lastNeg-2$}{
+		$base=base+1$;
+		$i=n$;\;
+	}
+	
+}
+\Return{$\frac{1}{2^{base-1}}$; }
+
+\end{algorithm}
+
+
+
+\begin{theorem}
+	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (V(p)> 0)$ be a polynomial with real coefficients. Let  $u$ denote the output of {\em Algorithm \ref{alg:up}} and $u_1$ denote the optimal upper bound of $p$ satisfying
+	{\em Theorem \ref{thm:log}}. When $u$ is less than or equal to $1$, $u<2u_1$.
+	
+\end{theorem}
+
+
+\begin{proof}
+	In {\em Algorithm \ref{alg:up}}, if  $\frac{1}{2^{base}}\ge u_1,$ then $\min_{j=0}^{n}\left\{ \sum_{i=j}^na_i\left( {\frac{1}{2^{base}} }
+	\right)^{i-j}\right \}\ge 0$ by the proof of {\em Theorem \ref{thm:log}} and thus 
+	the loop does not terminate at this step.
+	So when {\em Algorithm \ref{alg:up}} returns, $base$ must satisfy $\frac{1}{2^{base}}<u_1$. Therefore, the output $u=\frac{1}{2^{base-1}}$ and $u<2u_1$.
+	Obviously, this algorithm will terminate.
+	
+	Furthermore,  $\min_{j=0}^{n-1}\left\{ \sum_{i=j}^na_i\left( {\frac{1}{2^{base-1}} } \right)^{i-j}\right \}\ge 0$ by {\em Theorem \ref{thm:log}}. So, $u=\frac{1}{2^{base-1}}$ is an upper bound of $p$.
+\end{proof}
+
+
+\begin{corollary}
+	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0$ $ (V(p)> 0)$ be a polynomial with real coefficients. Set $u$ to be the optimal upper bound of positive roots of \rev{$p$} satisfying {\em Theorem
+	\ref{thm:log}}. Then  {\em Algorithm \ref{alg:up}} costs at most $O(n\log(u+1))$  additions and multiplications.
+\end{corollary}
+
+
+
+
+
+
+\subsection{Tricks}
+{\bf Variable substitution}
+If $p(x)\in \ZZ[x]$ and $p(x)=p_1(x^k)\ (k>1),$ then substitute $y=x^k$ in $p$. Obviously, $\deg(p_1,y)=\frac{\deg(p,x)}{k}$. We first isolate the real roots of $p_1$ then
+obtain the real roots of $p$. Using this trick, we can greatly reduce the running time of ${\it ChebyshevT}$
+and {\it ChebyshevU} when each term of the polynomials is of even degree. The same trick was also taken into account in \cite{johnson06}.
+
+{\bf Incomplete termination check}
+If $p(x)\in \ZZ[x]$ and $V(p)= 2$, we may try to check whether the sign of $p(1)$ is the same as the sign of the leading coefficient of $p$. If they are not the same, then $p$  has one positive root in $(0,1)$ and the other one in $(1,+\infty)$. So, we can terminate this subtree. Since the whole \froot\ procedure is a tree and \froot\ spends more than 90 percent of the
+total time on computing $T(p)$, this trick may improve the efficiency of the algorithm greatly.
