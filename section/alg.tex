@@ -6,6 +6,11 @@ the termination of algorithms based on  continued fraction, is presented. Finall
 
 
 As usual, $\deg(p)$ denotes the degree of univariate polynomial $p$. The derivative of polynomial $p$ with respect to the only variable is denoted by $p'$ and $\gcd(f,g)$ means the greatest common divisor of polynomials $f$ and $g$.
+\rev{ \begin{example}
+	\label{ex:exp1}
+	Consider the polynomial
+	\[p_1(x)=x^6+2x^5-4x^4+x^3+10x^2-5x+5.\]
+\end{example}}
 
 \begin{note}[Sign variation]
 Let $S=\left\{ a_0,a_1,\ldots,a_n \right\}$ be a finite sequence of non-zero real numbers. Define $V(S)$, the {\em sign variation} of $S$, as follows.
@@ -17,7 +22,8 @@ Let $S=\left\{ a_0,a_1,\ldots,a_n \right\}$ be a finite sequence of non-zero rea
 	\right.
 \]
 If some elements of $S$ are zero, remove those zero-elements to get a new sequence and define $V(S)$ to be the sign variation of this new sequence.
-\end{note}
+
+\end{note} 
 
 
 
@@ -29,8 +35,7 @@ beautiful results among them.   {\em Descartes' rule of signs}  provides a upper
   Suppose $p=\sum_{i=0}^na_ix^i\in\RR[x]$ has $m$ positive real roots, counted with multiplicity. Set $V(p)=V(a_0,a_1,\ldots,a_n)$. Then $m\le V(p)$, and $V(p)-m$ is even.
 \end{theorem}
 
-
-\rev{ {\em Descartes' rule of signs} is a usefual tool to estimate the number of  real roots. And if $V(p)=1$, then employ this rule, there is 
+\rev{ For {\em Example \ref{ex:exp1}}, $V(p_1)=V(5,-5,10,1,-4,2,1)=3$.  {\em Descartes' rule of signs} is a usefual tool to estimate the number of  real roots. And if $V(p)=1$, then employ this rule, there is 
   exact one  positive root.  But when $V(p)>1$, the rule can not directly isolate the real roots. {\em Vincent's theorem} in the following will
   overcome this restriction. {\em Vincent's theorem} says that if we give a small enough interval, then it can map this interval to all positive 
   domain and $V(p)\le 1$.}
