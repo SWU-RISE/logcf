@@ -6,7 +6,8 @@
 One key ingredient of continued fraction based methods is the computation of upper bounds of the positive real roots for giving  polynomials. We give in {\em Theorem \ref{thm:log}} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, {\em Algorithm \ref{alg:up}}, is proposed for computing upper bounds of positive real roots.
 
 
-\begin{theorem} \label{thm:log}
+\begin{theorem} 
+	\label{thm:log}
   Suppose   $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\ (a_n>0)$  is a univariate polynomial in $x$ with real coefficients.  Then  a nonnegative number $u$ is an upper bound of positive roots of $p$ if $u$   satisfies that $\min_{j=0}^{n}\left\{  \sum_{i=j}^n a_i u^{i-j}\right\}\ge0$.
 \end{theorem}
 \begin{proof}
@@ -30,7 +31,8 @@ One key ingredient of continued fraction based methods is the computation of upp
 
 The following theorem was given by Akritas et al. in  \cite{akr08}, which computes positive root upper bounds of univariate polynomials.
 
-\begin{theorem}[Akritas-Strzebo\'{n}ski-Vigklas, \cite{akr08}] \label{thm:qup}
+\begin{theorem}[Akritas-Strzebo\'{n}ski-Vigklas, \cite{akr08}]
+	 \label{thm:qup}
 
   Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and let $d(p)$ and $t(p)$ denote the degree and the number of its terms, respectively.
 
@@ -65,7 +67,7 @@ The following theorem was given by Akritas et al. in  \cite{akr08}, which comput
 
 
 \end{theorem}
-
+\rev{
 
 For {\em Example \ref{ex:exp1}} we have
   \begin{eqnarray*}
@@ -75,11 +77,8 @@ For {\em Example \ref{ex:exp1}} we have
  -q_4&=& -5x\\
  q_5&=&5.
   	\end{eqnarray*}
-
-
-
-
-We shall show in {\em Theorem \ref{thm:com1}} that the bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
+  	A direct application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^6, -4x^4\}$ of $q_1(x)$ and $q_2(x)$, and ignores the last term
+  	of $q_1(x)$. For $q_3(x)$ and $q_4(x)$,   application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^3, -5x\}$ of them, and igonores the last  term of $q_3(x)$. The resulting upper bound is $\sqrt{5}$. As $\sqrt{5}< -1+\sqrt{5}$, in {\em Example \ref{ex:exp1}}, the upper bound given by {\em Theorem \ref{thm:qup}} is less than  the upper bound given by {\em Theorem \ref{thm:log}}. For the upper bound, the value is better if the estimated upper better is smaller. So in this case,  {\em Theorem \ref{thm:log}} is better than   {\em Theorem \ref{thm:qup}} }. In general, we shall show in {\em Theorem \ref{thm:com}} that the bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
 
 
 
@@ -105,15 +104,16 @@ We shall show in {\em Theorem \ref{thm:com1}} that the bound given by {\em Theor
 	$\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
 \end{proof}
 
-\begin{theorem}\label{thm:com1}
-	
-	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients. Let  $u_1$ denote the optimal upper bound of
-	positive real roots satisfying {\em Theorem \ref{thm:log}} and $u_2$ denote the optimal upper bound of positive real roots satisfying {\em Theorem \ref{thm:qup}}, then $u_1\le u_2$ and the  strict inequality can hold.
-\end{theorem}
 
-\begin{proof}
-	By {\em Theorem \ref{thm:com}}, $u_1\le u_2$.
-	Let $p(x)=x^2+x-2$. Then $u_2=\sqrt{2}$ and $u_1=1$. So
-	$u_1<u_2$ for this \rev{$p$}.
-\end{proof}
+%\begin{theorem}\label{thm:com1}
+%	
+%	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients. Let  $u_1$ denote the optimal upper bound of
+%	positive real roots satisfying {\em Theorem \ref{thm:log}} and $u_2$ denote the optimal upper bound of positive real roots satisfying {\em Theorem \ref{thm:qup}}, then $u_1\le u_2$ and the  strict inequality can hold.
+%\end{theorem}
+%
+%\begin{proof}
+%	By {\em Theorem \ref{thm:com}}, $u_1\le u_2$.
+%	Let $p(x)=x^2+x-2$. Then $u_2=\sqrt{2}$ and $u_1=1$. So
+%	$u_1<u_2$ for this \rev{$p$}.
+%\end{proof}
 
