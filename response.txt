@@ -1,0 +1,30 @@
+Firstly, thanks very much for  reviewers'  commonts and suggestions.
+Follow the commonts we do bellow modifies: 
+1) We have corrected some of english problems by  reviewers  commonts.
+2) We given an example to demonstrate the theorems and algorithms.
+3) We add some word description  parts to expression the theorems and algorithms.
+4) We separate the theorems and algorithms into two sections.
+5) We simplifies the descriptions of algorithms.
+6) We add some noations in proof of theorem 5, make it more clear.
+
+We will answer some questions of reviewers.
+1) Why the new  tool is more eddicient than other tools?
+We use one example in this paper to explain that our method can given an upper bound less than
+sate of art one which given in reference paper.
+
+2)Is the improvement related to particular types of polynomials?
+Logcf is not improvement related to particular types of polynomials. As the results
+show logcf has good profermance in difference type polynomials. But, in general,
+there is no real root isolation method better than others in every cases. And logcf
+is also slower than other tool in some cases.
+
+3) Have your found the case when your method is less efficient than state of art implementations and why?
+As in Figure 4, logcf is slower than RootIntervals on WPn polynomials. We do not get the reason of this
+phenomenon.
+
+
+
+
+
+
+

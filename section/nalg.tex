@@ -78,7 +78,7 @@ For {\em Example \ref{ex:exp1}} we have
  q_5&=&5.
   	\end{eqnarray*}
   	A direct application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^6, -4x^4\}$ of $q_1(x)$ and $q_2(x)$, and ignores the last term
-  	of $q_1(x)$. For $q_3(x)$ and $q_4(x)$,   application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^3, -5x\}$ of them, and igonores the last  term of $q_3(x)$. The resulting upper bound is $\sqrt{5}$. As $\sqrt{5}< -1+\sqrt{5}$, in {\em Example \ref{ex:exp1}}, the upper bound given by {\em Theorem \ref{thm:qup}} is less than  the upper bound given by {\em Theorem \ref{thm:log}}. For the upper bound, the value is better if the estimated upper better is smaller. So in this case,  {\em Theorem \ref{thm:log}} is better than   {\em Theorem \ref{thm:qup}} }. In general, we shall show in {\em Theorem \ref{thm:com}} that the bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
+  	of $q_1(x)$. For $q_3(x)$ and $q_4(x)$,   application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^3, -5x\}$ of them, and igonores the last  term of $q_3(x)$. The resulting upper bound is $\sqrt{5}$. As $\sqrt{5}< -1+\sqrt{5}$, in {\em Example \ref{ex:exp1}}, the upper bound given by {\em Theorem \ref{thm:qup}} is less than  the upper bound given by {\em Theorem \ref{thm:log}}. For the upper bound, the value is better if the estimated upper better is smaller. So in this case,  {\em Theorem \ref{thm:log}} is better than   {\em Theorem \ref{thm:qup}} }. In general, we shall show in {\em Theorem \ref{thm:com}} that the optimal bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
 
 
 
@@ -96,13 +96,18 @@ For {\em Example \ref{ex:exp1}} we have
 \begin{proof}
 
 	For every $ a_i<0$, by {\em Theorem \ref{thm:qup}}, there exist  $c_{i_1}x^{e_{i_1}}$ and $b_{i_2}x^{e_{i_2}},$  respectively, such that
-	$e_{i_1}>e_{i_2}$ and $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$. By  {\em Theorem \ref{thm:qup}} $b_{i_2}x^{e_{i_2} }$ is the term $-a_ix^i$
-	and $c_{i_1}x^{e_{i_1} }$ is either a whole or a part (broken up by {\em Theorem \ref{thm:qup}}) of a positive term of $p$.
-	
-	For every  $a_j>0$, by {\em Theorem \ref{thm:qup}}, $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So \begin{dmath*}\sum_{i=k}^na_iu^i\ge \sum_{i=k,a_i<0}^n \left( c_{i_1}u^{e_{i_1}}-
-		b_{i_2}u^{e_{i_2}} \right)\ge 0 \end{dmath*} for any $k= 0,1,\ldots,n$. Then $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and
+	$e_{i_1}>e_{i_2}$, $b_{i_2}x^{e_{i_2} }$ is the term $-a_ix^i$
+	and $c_{i_1}x^{e_{i_1} }$ is either a whole or a part (broken up by {\em Theorem \ref{thm:qup}}) of a positive term of $p$. Since $u$ satisfies equation (\ref{eq:2}),
+	 $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$.  
+\rev{	 So $p(x)$ can be written as $p(x)=\sum (c_{i_1}x^{e_{i_1}}-b_{i_2}x^{e_{i_2}})$ where $c_{i_1}> 0,e_{i_1}> e_{i_2}, e_{{i+1}_1}\ge e_{i_1} $.
+	 So for  every  $a_j>0$, the sum of coefficient $c_{i_1}$ where  the terms of $c_{i_1}x^{e_{i_1}}$    has a corresponding $ b_{i_2}x^{e_{i_2}}$ and $e_{i_1}=j$ is less or equal than $a_j$. In other words,
+
+	for every  $a_j>0$,   $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So 
+	\[\sum_{i=k}^na_iu^i\ge \sum_{i=k,a_i<0, a_ix^i=-b_{i_2}x^{e_{i_2}}  }^n \left( c_{i_1}u^{e_{i_1}}-
+		b_{i_2}u^{e_{i_2}} \right)\ge 0 \] }for any $k= 0,1,\ldots,n$. Since $u\ge0$,  $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and \\ 
 	$\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
 \end{proof}
+
 
 
 %\begin{theorem}\label{thm:com1}

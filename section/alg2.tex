@@ -1,6 +1,6 @@
 \section{A new algorithm of computing upper bounds}
 \label{sec:alg}
-\rev{{\em Theorem \ref{thm:log}} is good theoretical result, it can easily guarantee a value is one of the real roots upper bound for giving polynomial. But it is difficult to directly use  to compute the optimal upper bound. So,  in this section we will give a new algorithm of computing upper bounds. The correction of this new algorithm is guarantee by the theoretically
+\rev{{\em Theorem \ref{thm:log}} is good theoretical result, it can easily guarantee a value is one of the real roots upper bound for giving polynomial. But it is difficult to directly use it to compute the optimal upper bound. So,  in this section we will give a new algorithm of computing upper bounds. The correction of this new algorithm is guarantee by the theoretically
 	results in section \ref{sec:thm}. And this algorithm  has good computability, more importantly is that the result of the algorithm is at most two times greater than the optimal result of {\em Theorem \ref{thm:log}}}.
 
 \rev{In symbolic computing procedure, $1$ is a special value,   {\em Algorithm \ref{alg:less}} is based on {\em Theorem \ref{thm:log}} to check whether $1$ is 
@@ -71,13 +71,12 @@ The loop between line \ref{one:start} and \ref{one:end}  in {\em Algorithm \ref{
 		then algorithm will return on line \ref{one:return}. 
 }
 
-
-\rev{ It is difficult to compute the optimal value which satisfies {\em Theorem \ref{thm:log}}. Hence, we provide an {\em Algorithm \ref{alg:up}}, which based on idea of {\em dichotomic search} to find a
+\rev{
+ It is difficult to compute the optimal value which satisfies {\em Theorem \ref{thm:log}}. Hence, we provide an {\em Algorithm \ref{alg:up}}, which based on idea of {\em dichotomic search} to find a
 	value which is   enough close to the optimal value. The correctness of {\em Algorithm \ref{alg:up}}  is direct based on {\em Theorem \ref{thm:log}}.   {\em Theorem \ref{thm:log}} needs
 	a value $u$ satisfies that  $\min_{j=0}^{n}\left\{  \sum_{i=j}^n a_i u^{i-j}\right\}\ge0$. The resulting  $\lambda$ of  {\em Algorithm \ref{alg:up}}   satisfies  that 
 	$  \sum_{i=j}^n a_i \lambda^{i-j}\ge 0, j=0,\cdots,n$. So employing {\em Algorithm \ref{alg:up}}  $\lambda$ is one of upper bound for giving polynomial.  Employing {\em Theorem \ref{thm:two}},
-	$\lambea$ is at most two times greater than optimal upper bound which satisfies  {\em Theorem \ref{thm:log}}.
-}
+	$\lambda$ is at most two times greater than optimal upper bound which satisfies {\em Theorem \ref{thm:log}}. }
 
 \begin{algorithm}[H]
 	\SetAlgoCaptionSeparator{.}

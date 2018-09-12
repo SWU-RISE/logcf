@@ -22,6 +22,8 @@ Since   source code and execution files
   Modified {\it Wilkinson} polynomials: $mW_n=W_n-1$.
 
   If $n>10$, $mW_n$ has $n$ simple real roots but most of them are irrational.
+   \subsubsection{$WP_n$}
+   Wilkinson-like polynomials: $WP_n$  is polynomial which convert $\Pi_{i=1}^n(x-\frac{i}{n-i})$ to polynomial with integer coefficients.   
  \subsubsection{$IW_n$}
  The distance between  $W_n$'s two  nearest real roots  is  $1$ and the distance between $mW_n$'s two nearest real roots  is nearly $1$. %Their real roots distribution   tends to be  uniform.  So
  We construct new polynomials $IW_n=\Pi_{i=1}^n(ix-1)$, which have a completely different nearest distance. % between any two nearest real roots.
@@ -30,9 +32,9 @@ Since   source code and execution files
  \subsubsection{$T_n$} {\it ChebyshevT} polynomials: $T_0=1,T_1=x,T_{n+1}=2xT_n-T_{n-1}$. $T_n$ has $n$ simple real roots.
  \subsubsection{$U_n$} {\it ChebyshevU} polynomials: $U_0=1,U_1=2x,U_{n+1}=2xU_n-U_{n-1}$. $U_n$ has $n$ simple real roots.
  \subsubsection{$L_n$}
- {\it Laguerre}  polynomials: $L_0=1$,$L_1=1-x$,$L_{n+1}(x)=\frac{  (2n+1-x )L_n(x)-  nL_{n-1 }(x)}{(n+1) }$. %We can
- %modify  it to  integer polynomial through multiplying   by  $n!L_n$.
+ {\it Laguerre}  polynomials: $L_0=1$,$L_1=1-x$,$L_{n+1}(x)=\frac{  (2n+1-x )L_n(x)-  nL_{n-1 }(x)}{(n+1) }$.
 Obviously, $n!L_n$ is a polynomial with integer coefficients.
+ \subsubsection{$LP_n$} Legendre polynomials of the first kind. $LP_1=1$ and $LP_n(x)=\frac{1}{2^nn!}\frac{d^n}{dx^n}(x^2-1)^n$.
  \subsubsection{$M_n$} {\it Mignotte} polynomials: $x^n-2(5x-1)^2$. If $n$ is odd, $M_n$ has three simple real roots. If $n$ is even, it has four simple real roots.
 
 \subsubsection{$MR_n$}{\it Mignotte} rational center polynomials: $ x^n-((2^7-1)x-1)^2$.
@@ -242,32 +244,6 @@ $U_{200}$ & 4.15 &  0.12& $M_{1200}$ & 88 & 0.05 \\
 \end{figure}
 
 
-
-
-
-%\begin{figure}[!ht]
-%	\begin{centering}
-%		\includegraphics[width=4.4in]{Un}
-%		\caption{ compare about solving ChebyshevU polynomials on new environment\label{fig:u}}
-%	\end{centering}
-%\end{figure}
-%
-%
-%\begin{figure}[!ht]
-%	\begin{centering}
-%		\includegraphics[width=4.4in]{Hn}
-%		\caption{ compare about solving Hermite polynomials on new environment\label{fig:h}}
-%	\end{centering}
-%\end{figure}
-
-
-%
-%\begin{figure}[!ht]
-%	\begin{centering}
-%		\includegraphics[width=4.4in]{Wpn}
-%		\caption{ compare about solving Hermite polynomials on new environment\label{fig:h}}
-%	\end{centering}
-%\end{figure}
 
 
 \begin{figure}
