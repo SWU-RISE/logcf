@@ -3,12 +3,12 @@
 \section{A new upper bounds of the positive real roots for giving  polynomials}
 \label{sec:thm}
 
-One key ingredient of continued fraction based methods is the computation of upper bounds of the positive real roots for giving  polynomials. We give in {\em Theorem \ref{thm:log}} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, {\em Algorithm \ref{alg:up}}, is proposed for computing upper bounds of positive real roots.
+One key ingredient of continued fraction based methods is the computation of  the positive real roots' upper bounds. We give in {\em Theorem \ref{thm:log}} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, {\em Algorithm \ref{alg:up}}, is proposed for computing upper bounds of positive real roots.
 
 
 \begin{theorem} 
 	\label{thm:log}
-  Suppose   $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\ (a_n>0)$  is a univariate polynomial in $x$ with real coefficients.  Then  a nonnegative number $u$ is an upper bound of positive roots of $p$ if $u$   satisfies that $\min_{j=0}^{n}\left\{  \sum_{i=j}^n a_i u^{i-j}\right\}\ge0$.
+  Suppose   $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\ (a_n>0)$  is an univariate polynomial in $x$ with real coefficients.  Then  a nonnegative number $u$ is an upper bound of positive roots of $p$ if $u$   satisfies that $\min_{j=0}^{n}\left\{  \sum_{i=j}^n a_i u^{i-j}\right\}\ge0$.
 \end{theorem}
 \begin{proof}
   If $n=0$, then $p$ is a nonzero constant and any positive number is its upper bound of positive roots.
@@ -26,7 +26,18 @@ One key ingredient of continued fraction based methods is the computation of upp
 
 \end{proof}
 
-\rev{For {\em Example \ref{ex:exp1}},  two real roots of equation $x^2-x-4$ are $-1-\sqrt{5}$ and $-1+\sqrt{5}$. And the largest real root of $x^5+2x^4-x^3+x^2+10x-5$ is less than $1$. Hence, $\min\{x\mid  \sum_{i=j}^6 a_i u^{i-j} \ge 0, j=0\cdots,6 \} =-1+\sqrt{5}$.  } 
+\rev{For {\em Example \ref{ex:exp1}},
+	\begin{itemize}
+			\item  $\sum_{i=6}^6 a_i x^{i-j}$ is $1$.
+		\item  $\sum_{i=5}^6 a_i x^{i-j}$ is $x+2$ and $x$ is positive in $x\ge0$.  
+		\item  	$\sum_{i=4}^6 a_i x^{i-j}$ is $x^2+2x-4$ and its 
+		two real roots are $-1-\sqrt{5}$ and $-1+\sqrt{5}$.
+		\item $\sum_{i=3}^6 a_i x^{i-j}$ is $x^3+2x^2-4x+1$ and its largest real root is  $1$.
+		\item  $\sum_{i=2}^6 a_i x^{i-j}$ is $x^4+2x^3-4x^2+x+10$  and  its largest real root is less than $1$.
+			\item  $\sum_{i=1}^6 a_i x^{i-j}$ is $x^5+2x^4-4x^3+x^2+10x-5$  and  its largest real root is less than $1$.
+				\item  $\sum_{i=0}^6 a_i x^{i-j}$ is $x^6+2x^5-4x^4+x^3+10x^2-5x+5$  and  its largest real root is less than $1$.
+	\end{itemize}
+	 Hence, $\min\{x\mid  \sum_{i=j}^6 a_i u^{i-j} \ge 0, j=0\cdots,6 \} =-1+\sqrt{5}$.  } 
 
 
 The following theorem was given by Akritas et al. in  \cite{akr08}, which computes positive root upper bounds of univariate polynomials.
@@ -99,12 +110,13 @@ For {\em Example \ref{ex:exp1}} we have
 	$e_{i_1}>e_{i_2}$, $b_{i_2}x^{e_{i_2} }$ is the term $-a_ix^i$
 	and $c_{i_1}x^{e_{i_1} }$ is either a whole or a part (broken up by {\em Theorem \ref{thm:qup}}) of a positive term of $p$. Since $u$ satisfies equation (\ref{eq:2}),
 	 $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$.  
-\rev{	 So $p(x)$ can be written as $p(x)=\sum (c_{i_1}x^{e_{i_1}}-b_{i_2}x^{e_{i_2}})$ where $c_{i_1}> 0,e_{i_1}> e_{i_2}, e_{{i+1}_1}\ge e_{i_1} $.
+\rev{So $p(x)$ can be written as $p(x)=\sum (c_{i_1}x^{e_{i_1}}-b_{i_2}x^{e_{i_2}})+g(x)$ where $c_{i_1}> 0,b_{i_2}>0,e_{i_1}> e_{i_2}, e_{{i+1}_1}\ge e_{i_1} $  and all the coefficients of polynomial $g(x)$ are positive.
 	 So for  every  $a_j>0$, the sum of coefficient $c_{i_1}$ where  the terms of $c_{i_1}x^{e_{i_1}}$    has a corresponding $ b_{i_2}x^{e_{i_2}}$ and $e_{i_1}=j$ is less or equal than $a_j$. In other words,
 
 	for every  $a_j>0$,   $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So 
 	\[\sum_{i=k}^na_iu^i\ge \sum_{i=k,a_i<0, a_ix^i=-b_{i_2}x^{e_{i_2}}  }^n \left( c_{i_1}u^{e_{i_1}}-
-		b_{i_2}u^{e_{i_2}} \right)\ge 0 \] }for any $k= 0,1,\ldots,n$. Since $u\ge0$,  $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and \\ 
+		b_{i_2}u^{e_{i_2}} \right) \] }for any $k= 0,1,\ldots,n$.  Since  $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$, $\sum_{i=k}^na_iu^i\ge 0$ for 
+	 $k= 0,1,\ldots,n$. Since $u\ge0$,  $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and \\ 
 	$\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
 \end{proof}
 

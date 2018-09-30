@@ -27,17 +27,17 @@ If some elements of $S$ are zero, remove those zero-elements to get a new sequen
 
 
 
-\rev{There are many studies about  real roots for a given polynomial,  {\em Descartes' rule of signs} is one of 
-beautiful results among them.   {\em Descartes' rule of signs}  provides a upper bound of the number of positive real roots.} 
+\rev{There are many studies about  real roots for a given polynomial,  and {\em Descartes' rule of signs} is one of 
+beautiful results among them.  It  provides a upper bound of the number of positive real roots.} 
 
 
 \begin{theorem}[Descartes' rule of signs] \label{thm:des}
   Suppose $p=\sum_{i=0}^na_ix^i\in\RR[x]$ has $m$ positive real roots, counted with multiplicity. Set $V(p)=V(a_0,a_1,\ldots,a_n)$. Then $m\le V(p)$, and $V(p)-m$ is even.
 \end{theorem}
 
-\rev{ For {\em Example \ref{ex:exp1}}, $V(p_1)=V(5,-5,10,1,-4,2,1)=3$.  {\em Descartes' rule of signs} is a usefual tool to estimate the number of  real roots. And if $V(p)=1$, then employ this rule, there is 
+\rev{ For {\em Example \ref{ex:exp1}}, $V(p_1)=V(5,-5,10,1,-4,2,1)=4$.  {\em Descartes' rule of signs} is a useful tool to estimate the number of  real roots. And if $V(p)=1$, then employ this rule, there is 
   exact one  positive root.  But when $V(p)>1$, the rule can not directly isolate the real roots. {\em Vincent's theorem} in the following will
-  overcome this restriction. {\em Vincent's theorem} says that if we give a small enough interval, then it can map this interval to all positive 
+  overcome this restriction. {\em Vincent's theorem} says that if we give a small enough interval, then it can map this interval to entire positive 
   domain and $V(p)\le 1$.}
 
 
@@ -77,13 +77,13 @@ $I$.addAll(\algcf($p$)); \;
   \end{eqnarray*}
 \end{definition}
 
-$T(p)$  is also called	Taylor shift one \cite{ger04,joh05}. In our experiments when {\em Algorithm \ref{alg:up}} is used for computing upper bounds, $T(p)$  takes  more than
+$T(p)$  is also called	{\em Taylor shift one} \cite{ger04,joh05}. In our experiments when {\em Algorithm \ref{alg:up}} is used for computing upper bounds, $T(p)$  takes  more than
 ninety percent of running time\footnote{The result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but   finally we chose the  classical
 method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think \rev{further} substituting
 will still improve the performance of our method.
 
 
-\rev{{\em Vincent's theorem} provides  a possible method to isolate the real roots. But it needs to divide all $\RR$ to small many intervals and the width of these intervals is smaller than a given  finite value. Hence, it can not   directly use {\em Vincent's theorem} to isolate the real roots. For employing  {\em Vincent's theorem}, we need to discard  the interval which can make sure there is no the real root in it. {\em Algorithm \ref{alg:lb}} provide a lower  bound $lu$ of positive roots for given $p$, then interval  $(0,lb)$ contains no the real roots, so we can safely  discard
+\rev{{\em Vincent's theorem} provides  a possible method to isolate the real roots. But it needs to divide all $\RR$ to  many small intervals and the width of these intervals is smaller than a given  finite value. Hence, it can not   directly use {\em Vincent's theorem} to isolate the real roots. For employing  {\em Vincent's theorem}, we need to discard  the interval which can make sure there is no the real root in it. {\em Algorithm \ref{alg:lb}} provide a lower  bound $lu$ of positive roots for given $p$, then interval  $(0,lb)$ contains no the real roots, so we can safely  discard
 	$(0,lb)$ when isolate the real roots. }
 
 
@@ -91,7 +91,7 @@ will still improve the performance of our method.
 \SetAlgoCaptionSeparator{.}
 \caption{\lb \label{alg:lb}}
 \DontPrintSemicolon
-\KwIn{ $p\in\ZZ[x],lc(p)\neq 0 $. }
+\KwIn{ $p\in\ZZ[x],\ lc(p)\neq 0 $. }
 \KwOut{$root\_lb$, a lower bound of positive roots of $p$. }
 $p=R(p)$;\;
 \lIf{$lc(p)<0$}{	$p=-p$;} 
@@ -101,7 +101,7 @@ $root\_lb=$\up($p$); \tcc{\up\ is described as {\em Algorithm \ref{alg:up}}}
 
 \begin{definition}
 $  intvl(a,b,c,d)=  \left\{\begin{aligned}
-&  (\min\left\{ \frac{a}{c},\frac{b}{d} \right\},\max\left\{ \frac{a}{c},\frac{b}{d} \right\} ) &\text{ if } cd\neq0;\\
+&  (\min\left\{ \frac{a}{c},\frac{b}{d} \right\},\ \max\left\{ \frac{a}{c},\frac{b}{d} \right\} ) &\text{ if } cd\neq0;\\
 & (0,\infty), &\text{ otherwise}.\\
 	\end{aligned}
 	\right.
@@ -115,8 +115,8 @@ Using the above notations and definitions, an algorithm for isolating all the re
 
 
 
-Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. \rev{Informally, {\em Algorithm \ref{alg:main}} is employing  above map to magnify the considered interval  to $(0,+\infty)$.  Through {\em Descartes' rule of signs}, there is no positive real root if  $V(p)=0$. In this case we throw away the interval from the considered intervals set.   When $V(p)=1$, then the interval contain exact one real root by {\em Descartes' rule of signs}. In this case we throw away the interval from the considered intervals set. When $V(p)>1$, in other words, it can not make sure how many real roots are contained in this interval, then we divide the considered interval into two subintervals. In this case we throw away the interval from the considered intervals set and add two subintervals to the considered intervals set.  Repeating this procedure  we can 
-	divide 	the  interval into  subintervals until  there is no size of  the corresponding original interval greater or equal to $\delta$ for interval in onsidered intervals set.   Then there is at most one real root in every interval in considered interval set and the procedure will terminal. This is also
+Continued fraction based procedures will continue subdividing the considered interval into two subintervals and make a one to one map from $(a,b)$ to $(0,+\infty)$ by $  p(x) = (1+x)^{n}p(\frac{a+bx}{1+x})$ until $V(p)$ equals $1$ or $0$. \rev{Informally, {\em Algorithm \ref{alg:main}} is employing  above map to magnify the considered interval  to $(0,+\infty)$.  Through {\em Descartes' rule of signs}, there is no positive real root if  $V(p)=0$. In this case we throw away the interval from the considered intervals set.   When $V(p)=1$, then this interval contains exact one real root by {\em Descartes' rule of signs}. In this case we throw away the interval from the considered intervals set. When $V(p)>1$, in other words, it can not make sure how many real roots are contained in this interval, then we divide the considered interval into two subintervals. In this case we throw away the interval from the considered intervals set and add two subintervals to the considered intervals set.  Repeating this procedure  we can 
+	divide 	the  interval into  subintervals until  there is no width of  the corresponding original interval greater or equal to $\delta$ in considered intervals set.   Then there is at most one real root in every interval in considered interval set and then procedure will terminal. This is also
 	the reason of why}
 {\em Theorem \ref{thm:vin}}  can guarantee the termination of {\em Algorithm \ref{alg:main}}.
 
