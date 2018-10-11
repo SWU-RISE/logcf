@@ -17,7 +17,7 @@ One key ingredient of continued fractions based methods is the computation of  t
 
   When $j=n-1$, $\sum_{i=n-1}^na_ib^{i-n+1}-\sum_{i=n-1}^na_iu^{i-n+1}=a_n(b-u)>0.$ Thus, the claim holds.
 
-  Assume the {\bf claim} holds  when $j=k$. When $j=k-1$,  $\sum_{i=k-1}^na_ib^{i-k+1}=\left(\sum_{i=k}^na_ib^{i-k}\right)b+a_{k-1} $. By assumption
+  Assume the {\bf claim} holds  when $j=k$. When $j=k-1$,  $\sum_{i=k-1}^na_ib^{i-k+1}=\left(\sum_{i=k}^na_ib^{i-k}\right)b+a_{k-1} $. By assumption,
   $\sum_{i=k}^na_ib^{i-k}>\sum_{i=k}^na_iu^{i-k}\ge0$. Since $b>u\ge0$, $\left(\sum_{i=k}^na_ib^{i-k}\right)b>\left (\sum_{i=k}^na_iu^{i-k} \right)u  $
   and $\sum_{i=k-1}^na_ib^{i-k+1}> \sum_{i=k-1}^na_iu^{i-k+1}$. So  $\sum_{i=j}^na_ib^{i-j}> \sum_{i=j}^na_iu^{i-j}$ for any $j= 0,\ldots,n-1$.
 
@@ -87,10 +87,10 @@ For {\em Example \ref{ex:exp1}} we have
  q_5&=&5.
   	\end{eqnarray*}
 A direct application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^6, -4x^4\}$ of $q_1(x)$ and $q_2(x)$, and ignores the last term
-  	of $q_1(x)$. For $q_3(x)$ and $q_4(x)$,   application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^3, -5x\}$ of them, and igonores the last  term of $q_3(x)$. The resulting upper bound is $\sqrt{5}$. As $\sqrt{5}> -1+\sqrt{5}$, for {\em Example \ref{ex:exp1}}, the upper bound given by {\em Theorem \ref{thm:qup}} is greater than  the upper bound given by {\em Theorem \ref{thm:log}}. For the upper bound, the value is better if the estimated upper bound is smaller. So in this case,  {\em Theorem \ref{thm:log}} is better than   {\em Theorem \ref{thm:qup}} . In general, we shall show in {\em Theorem \ref{thm:com}} that the optimal bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
+  	of $q_1(x)$. For $q_3(x)$ and $q_4(x)$,   application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^3, -5x\}$ of them, and igonores the last  term of $q_3(x)$. The resulting upper bound is $\sqrt{5}$. As $\sqrt{5}> -1+\sqrt{5}$, for {\em Example \ref{ex:exp1}}, the upper bound given by {\em Theorem \ref{thm:qup}} is greater than  the upper bound given by {\em Theorem \ref{thm:log}}. For the upper bound, the value is better if the estimated upper bound is smaller. So in this case,  {\em Theorem \ref{thm:log}}  is better than   {\em Theorem \ref{thm:qup}} . In general, we shall show in {\em Theorem \ref{thm:com}} that the optimal bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
 
 \begin{theorem}\label{thm:com}
-	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and $u$ denotes an upper bound of positive roots of $p$ obtained by {\em Theorem \ref{thm:qup}}, then $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
+	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients. If $u$ is an upper bound of positive roots of $p$ obtained by {\em Theorem \ref{thm:qup}}, then $  \sum_{i=k}^n a_i u^{i-k}\ge0$ for $k=0,\cdots, n$.
 	
 \end{theorem}
 \begin{proof}
