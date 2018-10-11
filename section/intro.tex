@@ -1,12 +1,13 @@
-
+% !Mode\dots ``TeX:UTF-8''
+%!TEX root=../realrootjssc
 \section{Introduction }
 \label{}
 Real root isolation of univariate polynomials with integer coefficients is one of the fundamental tasks in computer algebra as well as in many applications ranging from computational geometry to quantifier elimination. The problem can be stated as: given a polynomial $p\in \ZZ[x]$, computing for each of its real roots an interval with rational endpoints containing it and being disjoint from the intervals
-computed for the other roots.  There are three methods to isolate real roots.  The first kind consists of the subdivision algorithms using counting techniques based  on, {\it e.g.}, the {\em Strum theorem} or
-{\em Descartes' rule} of signs.  This  method counts the sign changes (of {\em Sturm sequence} or coefficients of some polynomials) in the considered interval and if the sign changes reach $1$ or $0$, the procedure returns from this interval.
+computed for the other roots.  There are three kinds of methods to isolate real roots.  The first kind consists of the subdivision algorithms using counting techniques based  on, {\it e.g.}, the {\em Sturm theorem} or
+{\em Descartes' rule of signs}.  This  method counts the sign changes (of {\em Sturm sequence} or coefficients of some polynomials) in the considered interval and if the sign changes reach $1$ or $0$, the procedure returns from this interval.
 Otherwise it subdivides the interval and computes recursively. The symbolic implementations of this method can be found in \cite{collin76,rou04,kobel2016computing,Tsigaridas2016} and the symbolic-numberic algorithms implementations can be found in \cite{rou04,eig05,eig08,meh11}.
 
-The second kind method takes use of the {\em continued fraction} algorithms \cite{akr08,tsi08,sha08}. These methods are highly efficient and competitive \cite{rou04,hemmer09}. Especially,  \cite{hemmer09} provides a test dataset   consisting of 5000 polynomials from many
+The second kind of methods take use of the {\em continued fraction} algorithms \cite{akr08,tsi08,sha08}. These methods are highly efficient and competitive \cite{rou04,hemmer09}. Especially,  \cite{hemmer09} provides a test dataset   consisting of 5000 polynomials from many
 different settings. And its   results indicate that there is no best method overall.
 %However one can say that for most instances the solvers based on  continued fraction are among
 %the best methods.
@@ -16,17 +17,18 @@ The third method is based on {\em Newton-Raphson} method and interval arithmetic
 The search space is subdivided until it contains only a single real root and Newton's method converges. When the polynomial is sparse and has very high degree, this method will be much faster than other methods. The symbolic implementations of this kind of methods can be found in \cite{xia06,xia07} and the numeric implementations
 can be found in \cite{kla93,rump99}.
 
-Those methods, which are  based on  continued fraction compute the continued fraction expansion of the real roots of a polynomial so as to  compute isolating intervals for real roots. One important step
-is to  compute the upper bounds of the positive real roots for some polynomials. There are  several classic methods to compute such upper bounds, such as {\em Cauchy bounds}, {\em Lagrange-MacLaurin  bounds} and {\em Kioustelidis' bounds}. And there are many recent works about the upper bound of the positive roots of univariate polynomials \cite{hong98,ste05,akr08}. Some methods for computing these bounds,  such as {\em Cauchy bounds}, are of $O(n)$ complexity but the results are very coarse. Some methods, as presented in  \cite{akr08} are of $O(n^2)$ complexity but their bounds are sharper. The balance between the precision and effect for computing such upper bounds has to be taken into account.
-\subsubsection{Our contribution}
-We provide a new method for computing such bounds with time complexity $O(n\log(u+1))$ \rev{addition and multiplication symbolic operators}, where $u$ is the optimal upper bound satisfying Theorem \ref{thm:log}. Besides, compared
-with \cite{akr08}, when  Algorithm \ref{alg:less} return true (the upper bound is less than $1$), our upper bound is at most two times that in \cite{akr08}. In this way, the algorithm of   isolating real roots is improved.  Our  method has been implemented as a  software package \froot\ using \texttt{C} language. For many benchmarks \froot \  is about four  times
+Those methods which are based on  continued fraction compute the continued fraction expansion of the real roots of a polynomial in order to  compute isolating intervals for real roots. One important step
+is to  compute the upper bounds of the positive real roots for some polynomials. There are  several classic methods to compute such upper bounds, such as {\em Cauchy's bound}, {\em Lagrange-MacLaurin's  bound} and {\em Kioustelidis' bound}. And there are many recent works about the upper bound of the positive roots of univariate polynomials \cite{hong98,ste05,akr08}. Some methods for computing these bounds,  such as {\em Cauchy's bound}, are of $O(n)$ complexity but the results are very coarse. Some methods, as presented in  \cite{akr08}, are of $O(n^2)$ complexity but their bounds are sharper. The balance between the precision and efficiency for computing such upper bounds has to be taken into account.
+\subsection{Our contribution}
+We provide a new method for computing such bounds with time complexity $O(n\log(u+1))$ %\rev{addition and multiplication symbolic operators},
+where $u$ is the optimal upper bound satisfying Theorem \ref{thm:log}. Besides, compared
+with \cite{akr08}, when  Algorithm \ref{alg:less} returns true (the upper bound is less than $1$), our upper bound is at most two times that in \cite{akr08}. In this way, the algorithm of   isolating real roots is improved.  Our  method has been implemented as a  software package \froot\ using \texttt{C} language. For many benchmarks \froot \  is about four  times
 faster   than  the function {\tt \REALROOT} of \MAPLE. Roughly speaking, \froot\ is competitive with \inte\ of \MM. In some test cases \froot\ is faster than \inte\ but in some other cases \inte\ is faster than \froot\ and the mean time of all test cases is almost the same. But we have an interesting finding that {\tt \inte} may output wrong results on some input polynomials due to incorrect zero judgement. %And it  is also much faster than   open source real root solver.}
 And in general \froot\ is also much faster than other state of art
-open source exact real root isolation solvers, such as \cf, \AND and \SLV. For those  benchmarks which  have only real roots, \froot\ is much faster than \sle\ and \eign\ which are based on numerical computation.
+open source exact real root isolation solvers, such as \cf, \AND\ and \SLV. For those  benchmarks which  have only real roots, \froot\ is much faster than \sle\ and \eign\ which are based on numerical computation.
 
-\subsubsection{Organization}
-\rev{
-The rest of this paper is organized as follows. In section \ref{sec:contalg}, we review the
-main algorithm for real root isolation based on  continued fraction. We present some theoretically results about  upper bounds of positive roots in section \ref{sec:thm}.  In section \ref{sec:alg}, we provide a new algorithm for
-computing an upper bound of positive roots and we also list some tricks used in \froot.  In section \ref{sec:exp}, we  list the comparative experimental results of our algorithm and other software.}
+\subsection{Organization}
+
+The rest of this paper is organized as follows. In Section \ref{sec:contalg}, we review the
+main algorithm for real root isolation based on  continued fractions. We present some theoretical results about upper bounds of positive roots in Section \ref{sec:thm}.  In Section \ref{sec:alg}, we provide a new algorithm for
+computing an upper bound of positive roots and we also list some tricks used in \froot.  In Section \ref{sec:exp}, we  list the comparative experimental results of our algorithm and other software.

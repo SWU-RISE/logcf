@@ -1,21 +1,21 @@
+% !Mode\dots ``TeX:UTF-8''
 
-%\newpage
-\section{A new upper bounds of the positive real roots for giving  polynomials}
+\section{A new upper bound of positive real roots for polynomials}
 \label{sec:thm}
 
-One key ingredient of continued fraction based methods is the computation of  the positive real roots' upper bounds. We give in {\em Theorem \ref{thm:log}} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, {\em Algorithm \ref{alg:up}}, is proposed for computing upper bounds of positive real roots.
+One key ingredient of continued fractions based methods is the computation of  the positive real roots' upper bounds. We give in {\em Theorem \ref{thm:log}} a new characteristic of such upper bounds of univariate polynomials. A new algorithm based on this theorem, {\em Algorithm \ref{alg:up}}, is proposed for computing upper bounds of positive real roots.
 
 
-\begin{theorem} 
+\begin{theorem}
 	\label{thm:log}
-  Suppose   $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\ (a_n>0)$  is an univariate polynomial in $x$ with real coefficients.  Then  a nonnegative number $u$ is an upper bound of positive roots of $p$ if $u$   satisfies that $\min_{j=0}^{n}\left\{  \sum_{i=j}^n a_i u^{i-j}\right\}\ge0$.
+  Suppose   $p=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\ (a_n>0)$  is a univariate polynomial in $x$ with real coefficients.  Then  nonnegative number $u$ is an upper bound of positive roots of $p$ if $u$   satisfies that  $a_i u^{i-j}\ge 0$ for $j=0,\cdots, n $.
 \end{theorem}
 \begin{proof}
   If $n=0$, then $p$ is a nonzero constant and any positive number is its upper bound of positive roots.
 
   Otherwise, if $b>u$,  we {\bf claim} that $\sum_{i=j}^na_ib^{i-j}> \sum_{i=j}^na_iu^{i-j}$ for any $j= 0,\ldots,n-1$.
 
-  When $j=n-1$, $\sum_{i=n-1}^na_ib^{i-n+1}-\sum_{i=n-1}^na_iu^{i-n+1}=a_n(b-u)>0.$ The claim holds.
+  When $j=n-1$, $\sum_{i=n-1}^na_ib^{i-n+1}-\sum_{i=n-1}^na_iu^{i-n+1}=a_n(b-u)>0.$ Thus, the claim holds.
 
   Assume the {\bf claim} holds  when $j=k$. When $j=k-1$,  $\sum_{i=k-1}^na_ib^{i-k+1}=\left(\sum_{i=k}^na_ib^{i-k}\right)b+a_{k-1} $. By assumption
   $\sum_{i=k}^na_ib^{i-k}>\sum_{i=k}^na_iu^{i-k}\ge0$. Since $b>u\ge0$, $\left(\sum_{i=k}^na_ib^{i-k}\right)b>\left (\sum_{i=k}^na_iu^{i-k} \right)u  $
@@ -26,18 +26,19 @@ One key ingredient of continued fraction based methods is the computation of  th
 
 \end{proof}
 
-\rev{For {\em Example \ref{ex:exp1}},
+For {\em Example \ref{ex:exp1}},
 	\begin{itemize}
 			\item  $\sum_{i=6}^6 a_i x^{i-j}$ is $1$.
-		\item  $\sum_{i=5}^6 a_i x^{i-j}$ is $x+2$ and $x$ is positive in $x\ge0$.  
-		\item  	$\sum_{i=4}^6 a_i x^{i-j}$ is $x^2+2x-4$ and its 
+		\item  $\sum_{i=5}^6 a_i x^{i-j}$ is $x+2$ and $x$ is positive for $x\ge0$.
+		\item  	$\sum_{i=4}^6 a_i x^{i-j}$ is $x^2+2x-4$ and its
 		two real roots are $-1-\sqrt{5}$ and $-1+\sqrt{5}$.
 		\item $\sum_{i=3}^6 a_i x^{i-j}$ is $x^3+2x^2-4x+1$ and its largest real root is  $1$.
 		\item  $\sum_{i=2}^6 a_i x^{i-j}$ is $x^4+2x^3-4x^2+x+10$  and  its largest real root is less than $1$.
 			\item  $\sum_{i=1}^6 a_i x^{i-j}$ is $x^5+2x^4-4x^3+x^2+10x-5$  and  its largest real root is less than $1$.
 				\item  $\sum_{i=0}^6 a_i x^{i-j}$ is $x^6+2x^5-4x^4+x^3+10x^2-5x+5$  and  its largest real root is less than $1$.
 	\end{itemize}
-	 Hence, $\min\{x\mid  \sum_{i=j}^6 a_i x^{i-j} \ge 0, j=0\cdots,6 \} =-1+\sqrt{5}$.  } 
+	 Hence, $  \sum_{i=j}^6 a_i u^{i-j} \ge 0, j=0\cdots,6$ when   $u=-1+\sqrt{5}$. Employing {\em Theorem \ref{thm:log}}, $-1+\sqrt{5}$ is one  upper bound of positive roots of $p_1$.
+
 
 
 The following theorem was given by Akritas et al. in  \cite{akr08}, which computes positive root upper bounds of univariate polynomials.
@@ -75,10 +76,7 @@ The following theorem was given by Akritas et al. in  \cite{akr08}, which comput
 	t_{2i-1}<t_{2i},
   \end{equation*}
   we {\bf break up} one of the coefficients of $q_{2i-1}(x)$ into $t_{2i}-t_{2i-1} +1$ parts, so that now $t(q_{2i} ) = t(q_{2i-1})$ and apply the same formula (\ref{eq:2}) given above.
-
-
 \end{theorem}
-\rev{
 
 For {\em Example \ref{ex:exp1}} we have
   \begin{eqnarray*}
@@ -88,38 +86,27 @@ For {\em Example \ref{ex:exp1}} we have
  -q_4&=& -5x\\
  q_5&=&5.
   	\end{eqnarray*}
-  	A direct application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^6, -4x^4\}$ of $q_1(x)$ and $q_2(x)$, and ignores the last term
-  	of $q_1(x)$. For $q_3(x)$ and $q_4(x)$,   application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^3, -5x\}$ of them, and igonores the last  term of $q_3(x)$. The resulting upper bound is $\sqrt{5}$. As $\sqrt{5}< -1+\sqrt{5}$, in {\em Example \ref{ex:exp1}}, the upper bound given by {\em Theorem \ref{thm:qup}} is less than  the upper bound given by {\em Theorem \ref{thm:log}}. For the upper bound, the value is better if the estimated upper better is smaller. So in this case,  {\em Theorem \ref{thm:log}} is better than   {\em Theorem \ref{thm:qup}} }. In general, we shall show in {\em Theorem \ref{thm:com}} that the optimal bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
-
-
-
-
-
-
-
-
+A direct application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^6, -4x^4\}$ of $q_1(x)$ and $q_2(x)$, and ignores the last term
+  	of $q_1(x)$. For $q_3(x)$ and $q_4(x)$,   application of {\em Theorem \ref{thm:qup}} pairs the terms $\{x^3, -5x\}$ of them, and igonores the last  term of $q_3(x)$. The resulting upper bound is $\sqrt{5}$. As $\sqrt{5}> -1+\sqrt{5}$, for {\em Example \ref{ex:exp1}}, the upper bound given by {\em Theorem \ref{thm:qup}} is greater than  the upper bound given by {\em Theorem \ref{thm:log}}. For the upper bound, the value is better if the estimated upper bound is smaller. So in this case,  {\em Theorem \ref{thm:log}} is better than   {\em Theorem \ref{thm:qup}} . In general, we shall show in {\em Theorem \ref{thm:com}} that the optimal bound given by {\em Theorem \ref{thm:log}} is better than that given by {\em Theorem \ref{thm:qup}}.
 
 \begin{theorem}\label{thm:com}
-	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and   $u$ denote an upper bound of positive roots of $p$ obtained by {\em Theorem \ref{thm:qup}}, then $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
+	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (a_n>0)$ be a polynomial with real coefficients and $u$ denotes an upper bound of positive roots of $p$ obtained by {\em Theorem \ref{thm:qup}}, then $\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
 	
 \end{theorem}
-
 \begin{proof}
 
 	For every $ a_i<0$, by {\em Theorem \ref{thm:qup}}, there exist  $c_{i_1}x^{e_{i_1}}$ and $b_{i_2}x^{e_{i_2}},$  respectively, such that
 	$e_{i_1}>e_{i_2}$, $b_{i_2}x^{e_{i_2} }$ is the term $-a_ix^i$
 	and $c_{i_1}x^{e_{i_1} }$ is either a whole or a part (broken up by {\em Theorem \ref{thm:qup}}) of a positive term of $p$. Since $u$ satisfies equation (\ref{eq:2}),
-	 $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$.  
-\rev{So $p(x)$ can be written as $p(x)=\sum (c_{i_1}x^{e_{i_1}}-b_{i_2}x^{e_{i_2}})+g(x)$ where $c_{i_1}> 0,b_{i_2}>0,e_{i_1}> e_{i_2}, e_{{i+1}_1}\ge e_{i_1} $  and all the coefficients of polynomial $g(x)$ are positive.
+	 $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$.
+So $p(x)$ can be written as $p(x)=\sum (c_{i_1}x^{e_{i_1}}-b_{i_2}x^{e_{i_2}})+g(x)$ where $c_{i_1}> 0,b_{i_2}>0,e_{i_1}> e_{i_2}, e_{{i+1}_1}\ge e_{i_1} $  and all the coefficients of polynomial $g(x)$ are positive.
 	 So for  every  $a_j>0$, the sum of coefficient $c_{i_1}$ where  $e_{i_1}=j$ and  the terms of $c_{i_1}x^{e_{i_1}}$    has a corresponding $ b_{i_2}x^{e_{i_2}}$ is less or equal than $a_j$. In other words,
-
-	for every  $a_j>0$,   $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So, if $u\ge0$ 
+	for every  $a_j>0$,   $\left( \sum_{a_i<0,e_{i_1}=j }c_{i_1} \right)\le a_{j}$. So, if $u\ge0,$
 	\[\sum_{i=k}^na_iu^i\ge \sum_{i=k,a_i<0, a_ix^i=-b_{i_2}x^{e_{i_2}}  }^n \left( c_{i_1}u^{e_{i_1}}-
-		b_{i_2}u^{e_{i_2}} \right) \] }for any $k= 0,1,\ldots,n$.  Since  $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$, $\sum_{i=k}^na_iu^i\ge 0$ for 
-	 $k= 0,1,\ldots,n$. Since $u\ge0$,  $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and 
+		b_{i_2}u^{e_{i_2}} \right) \] for any $k= 0,1,\ldots,n$.  Since  $c_{i_1}u^{e_{i_1}}\ge b_{i_2}u^{e_{i_2}}$, $\sum_{i=k}^na_iu^i\ge 0$ for
+	 $k= 0,1,\ldots,n$. Since $u\ge0$,  $\sum_{i=k}^n a_i u^{i-k}\ge0 $ for any  $k= 0,1,\ldots,n$ and
 	$\min_{k=0}^{n}\left\{  \sum_{i=k}^n a_i u^{i-k}\right\}\ge0$.
 \end{proof}
-
 
 
 %\begin{theorem}\label{thm:com1}

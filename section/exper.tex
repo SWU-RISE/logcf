@@ -1,7 +1,9 @@
+% !Mode\dots ``TeX:UTF-8''
 
 \section{Experiments}
 \label{sec:exp}
 
+\subsection{Environment}
 We first explain the implementation and computation environment.
 
 {\bf Old environment}\ \ \
@@ -11,8 +13,18 @@ We use {\tt Singular} \cite{singular} to read polynomials from files or standard
 Some tests were done before 2014   on a 64-bit Intel(R) Core(TM) i5 CPU 650 @ 3.20GHz with 4GB RAM memory and Ubuntu 12.04 GNU/Linux.
 
 {\bf New environment}\ \ \
-Since   source code and execution files
+Since the source code and execution files
 	of    \eign, \cf\ and \sle\  cannot be found in public area so far, we only compare \froot\ with \AND, \MM's\footnote{11.1 version} \inte\  and  \MAPLE's\footnote{Maple(TM) 2017,Windows(R) (64-bit)} \REALROOT\  on   a 64-bit Intel(R) Core(TM) i7 CPU-4710Q @ 2.50GHz with 8GB RAM memory and Windows 7. In this environment \froot\ was compiled by visual studio 2013.
+
+\subsection{Tricks}
+{\bf Variable substitution}
+If $p(x)\in \ZZ[x]$ and $p(x)=p_1(x^k)\ (k>1),$ then substitute $y=x^k$ in $p$. Obviously, $\deg(p_1,y)=\frac{\deg(p,x)}{k}$. We first isolate the real roots of $p_1$ then
+obtain the real roots of $p$. Using this trick, we can greatly reduce the running time of ${\it ChebyshevT}$
+and {\it ChebyshevU} when each term of the polynomials is of even degree. The same trick was also taken into account in \cite{johnson06}.
+
+{\bf Incomplete termination check}
+If $p(x)\in \ZZ[x]$ and $V(p)= 2$, we may try to check whether the sign of $p(1)$ is the same as the sign of the leading coefficient of $p$. If they are not the same, then $p$  has one positive root in $(0,1)$ and the other one in $(1,+\infty)$. So, we can terminate this subtree. Since the whole \froot\ procedure is a tree and \froot\ spends more than 90 percent of the
+total time on computing $T(p)$, this trick may improve the efficiency of the algorithm greatly.
 
 \subsection{Benchmarks }
  \subsubsection{$W_n$}
@@ -23,7 +35,7 @@ Since   source code and execution files
 
   If $n>10$, $mW_n$ has $n$ simple real roots but most of them are irrational.
    \subsubsection{$WP_n$}
-   Wilkinson-like polynomials: $WP_n$  is polynomial which convert $\Pi_{i=1}^n(x-\frac{i}{n-i})$ to polynomial with integer coefficients.   
+   Wilkinson-like polynomials: $WP_n$  is polynomial which convert $\Pi_{i=1}^n(x-\frac{i}{n-i})$ to polynomial with integer coefficients.
  \subsubsection{$IW_n$}
  The distance between  $W_n$'s two  nearest real roots  is  $1$ and the distance between $mW_n$'s two nearest real roots  is nearly $1$. %Their real roots distribution   tends to be  uniform.  So
  We construct new polynomials $IW_n=\Pi_{i=1}^n(ix-1)$, which have a completely different nearest distance. % between any two nearest real roots.
@@ -51,22 +63,21 @@ Obviously, $n!L_n$ is a polynomial with integer coefficients.
  \subsection{Results}
 We  convert all input polynomials to squarefree before isolating their real roots. And the converting time is not included in the following timings.
 
- The root isolation timings in Tables \ref{tab:open} are in seconds.  Most of the benchmarks we chose have large degrees and the timings show that our tool is very efficient.
+ The root isolation timings in Table \ref{tab:open} are in seconds.  Most of the benchmarks we chose have large degrees and the timings show that our tool is very efficient.
 % some  applications of isolation real roots produce very large degree polynomials, such as quantifier elimination.
 As a  built-in  \MAPLE\ function, \REALROOT\ is    compared with  our tool \froot.
  	The   \MAPLE\  we use has a version number 2017.  For  almost all
- benchmarks, our  software \froot\  can be  four  times faster than \REALROOT. The comparative data can be found in Figure \ref{fig:newresult} and Table \ref{tab:other}. In many cases, \froot\ is much faster than \REALROOT, the mean speedup is more than $4$ and the largest speedup is more than $900$.
+ benchmarks, our  software \froot\  can be  four  times faster than \REALROOT. The comparative data can be found in Figure \ref{fig:newresult} and Table \ref{tab:other}. In many cases, \froot\ is much faster than \REALROOT, the mean speedup is more than $4$ and the largest speedup is more than $900$. A possible reason may be that \REALROOT\ is based on Descartes's rule of signs and bisection method while \froot\ is based on continuous fractions expansion and Vincent's theorem.
 
-
- As a  built-in \MM\ symbol, \inte\ is    compared with  our tool \froot. The  \MM\  we use has a version number 11.1. 
- 	\froot\ is as good as \inte, in other words, in some test cases \froot\ is faster than \inte\ but in some other cases \inte\ is faster than \froot\ and the mean time of all test cases is  almost the same.
- 	  But we find a bug of \MM. In Table \ref{tab:and} when $n=1024,1448,2096$, \inte\ outputs a double root. A possible reason for this may be that \inte\ uses {\tt PossibleZeroQ} to check whether an expression is zero or not but {\tt PossibleZeroQ} cannot guarantee its outputs on those examples.
+ As a  built-in \MM\ symbol, \inte\ is    compared with  our tool \froot. The  \MM\  we use has a version number 11.1.
+ 	\froot\ is as good as \inte, in other words, in some test cases \froot\ is faster than \inte\ but in some other cases \inte\ is faster than \froot\ and the mean time of all test cases is  almost the same. The reason may be that \froot\ and \inte\ both are based on continuous fractions expansion and Vincent's theorem.
+ 	  In the comparison we find a bug of \MM. In Table \ref{tab:and} when $n=1024,1448,2096$, \inte\ outputs a double root. A possible reason for this may be that \inte\ uses {\tt PossibleZeroQ} to check whether an expression is zero or not but {\tt PossibleZeroQ} cannot guarantee its outputs on those examples.
 
 Table \ref{tab:other} shows that \froot\ is much faster than other solvers on $W_n$. The reason is that Algorithm \ref{alg:less} firstly check whether $1$ is an upper bound and the distance of any two consecutive real roots of $W_n$ is just $1$, which guarantees that the equation of  line $12$ in Algorithm  \ref{alg:cf}  always holds.
 
 
  We also consider open software,  such as \cf\  \cite{hemmer09}, \AND\cite{Tsigaridas2016} and \SLV\cite{kobel2016computing}  which
- seem to be the fastest  open softwares  available for exact real root isolation. Many experiments  about  state of the art open software for isolating
+ seem to be the fastest  open software  available for exact real root isolation. Many experiments  about  state of the art open software for isolating
  real roots have been done in \cite{hemmer09,Tsigaridas2016,kobel2016computing},  which  indicate that     \cf, \AND\ and \SLV\
  are  the fastest in many cases.
  In our experiments, \froot\ is much faster than \cf. %We only consider a few of benchmarks with only simple roots as they can indicate  difference between two softwares.
@@ -183,12 +194,14 @@ Table \ref{tab:other} shows that \froot\ is much faster than other solvers on $W
 %\subsubsection*{ Randomly generated benchmarks}
 
 For randomly generated polynomials, we consider different settings of
-$(n,b,r)$ as shown in Figure \ref{fig:2}. For each setting $(n,b,r)$, we generate randomly five instances and  compute the mean of five running times. \rev{The degree of random cases are between $10$ to $1500$, the coefficients  belong to $[-17951,17951]$ and the value of $r$ belongs to $\{0.1,0.2,\cdots, 0.9\}$.} In almost every randomly generated benchmark, \froot\  is  faster than other  solvers. And we can also  find that
+$(n,b,r)$ as shown in Figure \ref{fig:2}. For each setting $(n,b,r)$, we generate randomly five instances and  compute the mean of five running times. The degree of random cases are between $10$ to $1500$, the coefficients  belong to $[-17951,17951]$ and the value of $r$ belongs to $\{0.1,0.2,\cdots, 0.9\}$. In almost every randomly generated benchmark, \froot\  is  faster than other  solvers. And we can also  find that
 degree is the main factor affecting the  running time.
 
 More test results can be found at
 	
 	 \url{https://github.com/djuanbei/logcf/blob/master/testresult.xls}
+
+In our experiments when {\em Algorithm \ref{alg:up}} is used for computing upper bounds, $T(p)$  takes  more than ninety percent of running time\footnote{The result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but finally we chose the  classical method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think further substituting will still improve the performance of our method.
 
 \begin{table}
   \centering
