@@ -3,7 +3,7 @@
 \section{A new algorithm of computing upper bounds}
 \label{sec:alg}
 
-Theorem \ref{thm:log} is a good theoretical result, it can easily guarantee  a value is an upper bound for a given polynomial. But it is difficult to directly use it for computing the optimal upper bound. So,  in this section we will provide a new algorithm for computing upper bounds. The correctness of this new algorithm is guaranteed by the theoretical results in Section \ref{sec:thm}. And this algorithm can easily output an upper bound which is at most two times greater than the optimal result of {\em Theorem \ref{thm:log}}.
+Theorem \ref{thm:log} is a good theoretical result, it can easily guarantee  a value is an upper bound for a given polynomial. However it is difficult to directly use it for computing the optimal upper bound. So,  in this section we will provide a new algorithm for computing upper bounds. The correctness of this new algorithm is guaranteed by the theoretical results in Section \ref{sec:thm}. And this algorithm can easily output an upper bound which is at most two times greater than the optimal result of {\em Theorem \ref{thm:log}}.
 
 {\em Algorithm \ref{alg:less}} is based on {\em Theorem \ref{thm:log}} to check whether $1$ is an upper bound for a given polynomial.
 
@@ -62,12 +62,12 @@ where "$+$" means the corresponding $a_k$ is positive, "$-$" means the correspon
 corresponding $a_k$ is unknown and  "$+_0$" means the corresponding $a_k$ is nonnegative.
 The loop between lines \ref{one:start} and \ref{one:end} shifts $i$ and $j$ right until one of them reaches value $lastNeg-1$. If $j$ reaches value $lastNeg-1$ at line $14$,  it is easy to check that $i\ge j\wedge cfSum\ge 0$ always holds in this iteration. In other words, $\sum_{k=l}^na_k\ge 0$ for $l=lastNeg,\ldots,n$. As $a_{k}>0$ for $k=0,\ldots, lastNeg-1$, $\sum_{k=l}^na_k\ge 0$ for $l=0,1,\ldots, n$. By {\em Theorem  \ref{thm:log}},  $1$ is an upper bound of the positive real roots of $p$.
 
-In {\em Example \ref{ex:exp1}}, at the beginning, $cfSum=1$ and the values of  $i$, $j$, $lastNeg$ are as follows:
+\rev{In {\em Example \ref{ex:exp1}}, at the beginning, $cfSum=1$ and the values of  $i$, $j$, $lastNeg$ are as follows:
 	\[1,\underbrace{2}_{i=5},\underbrace{-4}_{j=4},1,10,\underbrace{-5}_{lastNeg=1},5.\]
 After executing the main loop of {\em Algorithm \ref{alg:less}} between line \ref{one:start} and line \ref{one:end}, the values will become
 	$cfSum=-3$	\[1,\underbrace{2}_{i=5},-4,\underbrace{1}_{j=3},10,\underbrace{-5}_{lastNeg=1},5.\]
 		After the second iteration, the values will become
-		$cfSum=-1$	\[1,2,\underbrace{-4}_{i=4},\underbrace{1}_{j=3},10,\underbrace{-5}_{lastNeg=1},5.\] Hence, during the third iteration, the algorithm will return on line \ref{one:return}.
+		$cfSum=-1$	\[1,2,\underbrace{-4}_{i=4},\underbrace{1}_{j=3},10,\underbrace{-5}_{lastNeg=1},5.\] Hence, during the third iteration, the algorithm will return on line \ref{one:return}. This means $1$ is not  upper bound of positive real roots of $p_1$.}
 
 \begin{algorithm}[H]
 	\SetAlgoCaptionSeparator{.}
@@ -134,7 +134,7 @@ After executing the main loop of {\em Algorithm \ref{alg:less}} between line \re
 
 \end{algorithm}
 
-It is difficult to compute the optimal value which satisfies {\em Theorem \ref{thm:log}}. Hence, we provide {\em Algorithm \ref{alg:up}} based on the idea of {\em dichotomic search} to find a value which is close enough to the optimal value. The correctness of {\em Algorithm \ref{alg:up}} is directly based on {\em Theorem \ref{thm:log}}.   {\em Theorem \ref{thm:log}} needs a value $u$ satisfying that  $\min_{j=0}^{n}\left\{  \sum_{i=j}^n a_i u^{i-j}\right\}\ge0$. The resulting  $\lambda$ of  {\em Algorithm \ref{alg:up}}   satisfies  that $\sum_{i=j}^n a_i \lambda^{i-j}\ge 0, j=0,\ldots,n$. So $\lambda$ is an upper bound for the given polynomial. By {\em Theorem \ref{thm:two}},	$\lambda$ is at most two times greater than the optimal upper bound which satisfies {\em Theorem \ref{thm:log}}.
+It is difficult to compute the optimal value which satisfies {\em Theorem \ref{thm:log}}. Hence, we provide {\em Algorithm \ref{alg:up}} based on the idea of {\em dichotomic search} to find a value which is close enough to the optimal value. The correctness of {\em Algorithm \ref{alg:up}} is directly based on {\em Theorem \ref{thm:log}}.   {\em Theorem \ref{thm:log}} needs a value $u$ satisfying that  $ \sum_{i=j}^n a_i u^{i-j}\ge0$ for $j=0,\cdots, n$. Since the resulting  $\lambda$ of  {\em Algorithm \ref{alg:up}}   satisfies  that $\sum_{i=j}^n a_i \lambda^{i-j}\ge 0, j=0,\ldots,n$, $\lambda$ is an upper bound for the given polynomial. Moreover, by {\em Theorem \ref{thm:two}},	$\lambda$ is at most two times greater than the optimal upper bound which satisfies {\em Theorem \ref{thm:log}}.
 
 \begin{theorem}
 	\label{thm:two}
@@ -145,13 +145,13 @@ It is difficult to compute the optimal value which satisfies {\em Theorem \ref{t
 
 
 \begin{proof}
-	In {\em Algorithm \ref{alg:up}}, if  $\frac{1}{2^{base}}\ge u_1,$ then $\min_{j=0}^{n}\left\{ \sum_{i=j}^na_i\left( {\frac{1}{2^{base}} }
-	\right)^{i-j}\right \}\ge 0$ by the proof of {\em Theorem \ref{thm:log}} and thus
+	In {\em Algorithm \ref{alg:up}}, if  $\frac{1}{2^{base}}\ge u_1,$ then $ \sum_{i=j}^na_i\left( {\frac{1}{2^{base}} }
+	\right)^{i-j} \ge 0$ for $j=0,\cdots, n$ by the proof of {\em Theorem \ref{thm:log}}. Thus
 	the loop does not terminate at this step.
 	So when {\em Algorithm \ref{alg:up}} returns, $base$ must satisfy $\frac{1}{2^{base}}<u_1$. Therefore, the output $u=\frac{1}{2^{base-1}}$ and $u<2u_1$.
 	Obviously, this algorithm will terminate.
 	
-	Furthermore,  $\min_{j=0}^{n-1}\left\{ \sum_{i=j}^na_i\left( {\frac{1}{2^{base-1}} } \right)^{i-j}\right \}\ge 0$ by {\em Theorem \ref{thm:log}}. So, $u=\frac{1}{2^{base-1}}$ is an upper bound of $p$.
+	Furthermore,  $ \sum_{i=j}^na_i\left( {\frac{1}{2^{base-1}} } \right)^{i-j}\ge 0$ for $j=0,\cdots, n-1$ by {\em Theorem \ref{thm:log}}. Hence, $u=\frac{1}{2^{base-1}}$ is an upper bound of $p$.
 \end{proof}
 
 \begin{corollary}
