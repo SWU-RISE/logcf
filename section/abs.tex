@@ -4,7 +4,7 @@
 \begin{abstract}
   %This paper revisits an   algorithm for isolating real roots of  univariate
   %polynomials based on continued fractions. It follows  the work of Vincent,	Uspensky, Collins and Akritas, Johnson and Krandick.
-Computing upper bounds of the positive real roots of some polynomials is a key step of those real root isolation algorithms based on continued fraction expansion and Vincent's theorem. We give a new algorithm  for computing an upper bound of positive roots in this paper. The complexity of the algorithm is  $O(n\log(u+1))$ %\rev{addition and multiplication symbolic operators}
+Computing upper bounds of the positive real roots of some polynomials is a key step of those real root isolation algorithms based on continued fraction expansion and Vincent's theorem. We give a new algorithm  for computing an upper bound of positive roots in this paper. The complexity of the algorithm is  $O(n\log(u+1))$ additions and multiplications %\rev{addition and multiplication symbolic operators}
 where $u$ is the optimal upper bound satisfying Theorem \ref{thm:log} of this paper and $n$ is the degree of the polynomial. Our method together with some tricks have been implemented as a  software package \froot\ using \texttt{C} language. Experiments on many benchmarks show that \froot \  is competitive with \inte\ of \MM\ and  the function \REALROOT\ of \MAPLE\ averagely and it is much faster than existing open source real root solvers in many test cases.
 ~\\
 {\bf Keywords: }
