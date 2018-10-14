@@ -1,0 +1,4 @@
+
+Thank you very much for your valuable comments and suggestions.
+
+All your comments are taken into account and the paper has been revised accordingly. Especially, we add a running example to illustrate the definitions, theorems and algorithms.
