@@ -65,9 +65,31 @@ The loop between lines \ref{one:start} and \ref{one:end} shifts $i$ and $j$ righ
 \rev{In {\em Example \ref{ex:exp1}}, at the beginning, $cfSum=1$ and the values of  $i$, $j$, $lastNeg$ are as follows:
 	\[1,\underbrace{2}_{i=5},\underbrace{-4}_{j=4},1,10,\underbrace{-5}_{lastNeg=1},5.\]
 After executing the main loop of {\em Algorithm \ref{alg:less}} between line \ref{one:start} and line \ref{one:end}, the values will become
-	$cfSum=-3$	\[1,\underbrace{2}_{i=5},-4,\underbrace{1}_{j=3},10,\underbrace{-5}_{lastNeg=1},5.\]
+	$cfSum=-3,$	\[1,\underbrace{2}_{i=5},-4,\underbrace{1}_{j=3},10,\underbrace{-5}_{lastNeg=1},5.\]
 		After the second iteration, the values will become
-		$cfSum=-1$	\[1,2,\underbrace{-4}_{i=4},\underbrace{1}_{j=3},10,\underbrace{-5}_{lastNeg=1},5.\] Hence, during the third iteration, the algorithm will return on line \ref{one:return}. This means $1$ is not  upper bound of positive real roots of $p_1$.}
+		$cfSum=-1,$	\[1,2,\underbrace{-4}_{i=4},\underbrace{1}_{j=3},10,\underbrace{-5}_{lastNeg=1},5.\] Hence, during the third iteration, the algorithm will return at line \ref{one:return}. This means $1$ is not an upper bound of positive real roots of $p_1$.}
+
+It is difficult to compute the optimal value which satisfies {\em Theorem \ref{thm:log}}. Hence, we provide {\em Algorithm \ref{alg:up}} based on the idea of {\em dichotomic search} to find a value which is close enough to the optimal value. The correctness of {\em Algorithm \ref{alg:up}} is directly based on {\em Theorem \ref{thm:log}}.   {\em Theorem \ref{thm:log}} needs a value $u$ satisfying that  $ \sum_{i=j}^n a_i u^{i-j}\ge0$ for $j=0,\cdots, n$. Since the resulting  $\lambda$ of  {\em Algorithm \ref{alg:up}}   satisfies  that $\sum_{i=j}^n a_i \lambda^{i-j}\ge 0, j=0,\ldots,n$, $\lambda$ is an upper bound for the given polynomial. Moreover, by {\em Theorem \ref{thm:two}},	$\lambda$ is at most two times greater than the optimal upper bound which satisfies {\em Theorem \ref{thm:log}}.
+
+\begin{theorem}
+	\label{thm:two}
+	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (V(p)> 0)$ be a polynomial with real coefficients. Let  $u$ denote the output of {\em Algorithm \ref{alg:up}} and $u_1$ denote the optimal upper bound of $p$ satisfying
+	{\em Theorem \ref{thm:log}}. When $u$ is less than or equal to $1$, $u<2u_1$.
+\end{theorem}
+
+\begin{proof}
+	In {\em Algorithm \ref{alg:up}}, if  $\frac{1}{2^{base}}\ge u_1,$ then $ \sum_{i=j}^na_i\left( {\frac{1}{2^{base}} }
+	\right)^{i-j} \ge 0$ for $j=0,\cdots, n$ by the proof of {\em Theorem \ref{thm:log}}. Thus
+	the loop does not terminate at this step.
+	So when {\em Algorithm \ref{alg:up}} returns, $base$ must satisfy $\frac{1}{2^{base}}<u_1$. Therefore, the output $u=\frac{1}{2^{base-1}}$ and $u<2u_1$.
+	Obviously, this algorithm will terminate.
+	
+	Furthermore,  $ \sum_{i=j}^na_i\left( {\frac{1}{2^{base-1}} } \right)^{i-j}\ge 0$ for $j=0,\cdots, n-1$ by {\em Theorem \ref{thm:log}}. Hence, $u=\frac{1}{2^{base-1}}$ is an upper bound of $p$.
+\end{proof}
+
+\begin{corollary}
+	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0$ $ (V(p)> 0)$ be a polynomial with real coefficients. Set $u$ to be the optimal upper bound of positive roots of $p$ satisfying {\em Theorem	\ref{thm:log}}. Then  {\em Algorithm \ref{alg:up}} costs at most $O(n\log(u+1))$  additions and multiplications. % \rev{symbolic operators}.
+\end{corollary}
 
 \begin{algorithm}[H]
 	\SetAlgoCaptionSeparator{.}
@@ -133,29 +155,4 @@ After executing the main loop of {\em Algorithm \ref{alg:less}} between line \re
 \Return{$\frac{1}{2^{base-1}}$; }
 
 \end{algorithm}
-
-It is difficult to compute the optimal value which satisfies {\em Theorem \ref{thm:log}}. Hence, we provide {\em Algorithm \ref{alg:up}} based on the idea of {\em dichotomic search} to find a value which is close enough to the optimal value. The correctness of {\em Algorithm \ref{alg:up}} is directly based on {\em Theorem \ref{thm:log}}.   {\em Theorem \ref{thm:log}} needs a value $u$ satisfying that  $ \sum_{i=j}^n a_i u^{i-j}\ge0$ for $j=0,\cdots, n$. Since the resulting  $\lambda$ of  {\em Algorithm \ref{alg:up}}   satisfies  that $\sum_{i=j}^n a_i \lambda^{i-j}\ge 0, j=0,\ldots,n$, $\lambda$ is an upper bound for the given polynomial. Moreover, by {\em Theorem \ref{thm:two}},	$\lambda$ is at most two times greater than the optimal upper bound which satisfies {\em Theorem \ref{thm:log}}.
-
-\begin{theorem}
-	\label{thm:two}
-	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\ (V(p)> 0)$ be a polynomial with real coefficients. Let  $u$ denote the output of {\em Algorithm \ref{alg:up}} and $u_1$ denote the optimal upper bound of $p$ satisfying
-	{\em Theorem \ref{thm:log}}. When $u$ is less than or equal to $1$, $u<2u_1$.
-	
-\end{theorem}
-
-
-\begin{proof}
-	In {\em Algorithm \ref{alg:up}}, if  $\frac{1}{2^{base}}\ge u_1,$ then $ \sum_{i=j}^na_i\left( {\frac{1}{2^{base}} }
-	\right)^{i-j} \ge 0$ for $j=0,\cdots, n$ by the proof of {\em Theorem \ref{thm:log}}. Thus
-	the loop does not terminate at this step.
-	So when {\em Algorithm \ref{alg:up}} returns, $base$ must satisfy $\frac{1}{2^{base}}<u_1$. Therefore, the output $u=\frac{1}{2^{base-1}}$ and $u<2u_1$.
-	Obviously, this algorithm will terminate.
-	
-	Furthermore,  $ \sum_{i=j}^na_i\left( {\frac{1}{2^{base-1}} } \right)^{i-j}\ge 0$ for $j=0,\cdots, n-1$ by {\em Theorem \ref{thm:log}}. Hence, $u=\frac{1}{2^{base-1}}$ is an upper bound of $p$.
-\end{proof}
-
-\begin{corollary}
-	Let $p(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0$ $ (V(p)> 0)$ be a polynomial with real coefficients. Set $u$ to be the optimal upper bound of positive roots of $p$ satisfying {\em Theorem	\ref{thm:log}}. Then  {\em Algorithm \ref{alg:up}} costs at most $O(n\log(u+1))$  addition and multiplication. % \rev{symbolic operators}.
-\end{corollary}
-
 

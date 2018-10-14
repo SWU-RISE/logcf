@@ -24,7 +24,7 @@ We provide a new method for computing such bounds with time complexity $O(n\log(
 where $u$ is the optimal upper bound satisfying Theorem \ref{thm:log}. Besides, compared
 with \cite{akr08}, when  Algorithm \ref{alg:less} returns true (the upper bound is less than $1$), our upper bound is at most two times that in \cite{akr08}. In this way, the algorithm of   isolating real roots is improved.  Our  method has been implemented as a  software package \froot\ using \texttt{C} language. For many benchmarks \froot \  is about four  times
 faster   than  the function {\tt \REALROOT} of \MAPLE. Roughly speaking, \froot\ is competitive with \inte\ of \MM. In some test cases \froot\ is faster than \inte\ but in some other cases \inte\ is faster than \froot\ and the mean time of all test cases is almost the same. But we have an interesting finding that {\tt \inte} may output wrong results on some input polynomials due to incorrect zero judgement. %And it  is also much faster than   open source real root solver.}
-And in general \froot\ is also much faster than other state of art
+And in general \froot\ is also much faster than other state of the art
 open source exact real root isolation solvers, such as \cf, \AND\ and \SLV. For those  benchmarks which  have only real roots, \froot\ is much faster than \sle\ and \eign\ which are based on numerical computation.
 
 \subsection{Organization}

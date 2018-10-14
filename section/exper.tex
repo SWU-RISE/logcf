@@ -65,11 +65,11 @@ We  convert all input polynomials to squarefree before isolating their real root
 % some  applications of isolation real roots produce very large degree polynomials, such as quantifier elimination.
 As a  built-in  \MAPLE\ function, \REALROOT\ is    compared with  our tool \froot.
  	The   \MAPLE\  we use has a version number 2017.  For  almost all
- benchmarks, our  software \froot\  can be  four  times faster than \REALROOT. The comparative data can be found in Figure \ref{fig:newresult} and Table \ref{tab:other}. In many cases, \froot\ is much faster than \REALROOT, the mean speedup is more than $4$ and the largest speedup is more than $900$. A possible reason may be that \REALROOT\ is based on Descartes's rule of signs and bisection method while \froot\ is based on continuous fractions expansion and Vincent's theorem.
+ benchmarks, our  software \froot\  can be  four  times faster than \REALROOT. The comparative data can be found in Figure \ref{fig:newresult} and Table \ref{tab:other}. In many cases, \froot\ is much faster than \REALROOT, the mean speedup is more than $4$ and the largest speedup is more than $900$. \rev{A possible reason may be that \REALROOT\ is based on Descartes's rule of signs and bisection method while \froot\ is based on continuous fractions representation and Vincent's theorem.}
 
  As a  built-in \MM\ symbol, \inte\ is    compared with  our tool \froot. The  \MM\  we use has a version number 11.1.
- 	\froot\ is as good as \inte, in other words, in some test cases \froot\ is faster than \inte\ but in some other cases \inte\ is faster than \froot\ and the mean time of all test cases is  almost the same. The reason may be that \froot\ and \inte\ both are based on continuous fractions expansion and Vincent's theorem.
- 	  In the comparison we find a bug of \MM. In Table \ref{tab:and} when $n=1024,1448,2096$, \inte\ outputs a double root. A possible reason for this may be that \inte\ uses {\tt PossibleZeroQ} to check whether an expression is zero or not but {\tt PossibleZeroQ} cannot guarantee its outputs on those examples.
+ 	\froot\ is as good as \inte, in other words, in some test cases \froot\ is faster than \inte\ but in some other cases \inte\ is faster than \froot\ and the mean time of all test cases is  almost the same. \rev{The reason may be that \froot\ and \inte\ both are based on continuous fractions representation and Vincent's theorem.}
+ 	  In the comparison we find a bug of \inte. In Table \ref{tab:and} when $n=1024,1448,2096$, \inte\ outputs a double root. A possible reason for this may be that \inte\ uses {\tt PossibleZeroQ} to check whether an expression is zero or not but {\tt PossibleZeroQ} cannot guarantee its outputs on those examples.
 
 Table \ref{tab:other} shows that \froot\ is much faster than other solvers on $W_n$. The reason is that Algorithm \ref{alg:less} firstly check whether $1$ is an upper bound and the distance of any two consecutive real roots of $W_n$ is just $1$, which guarantees that the equation of  line $12$ in Algorithm  \ref{alg:cf}  always holds.
 
@@ -194,11 +194,89 @@ For randomly generated polynomials, we consider different settings of
 $(n,b,r)$ as shown in Figure \ref{fig:2}.  In almost every randomly generated benchmark, \froot\  is  faster than other  solvers. And we can also  find that
 degree is the main factor affecting the  running time.
 
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=4.4in,height=1.2in]{logcfslv}
+		\caption{ Comparison of \froot\ and \SLV\ on benchmarks\label{fig:3}}
+	\end{centering}
+\end{figure}
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=4.4in,height=1.2in]{Rn}
+		\caption{ Comparison on random benchmarks $R(n,b,r)$ with different settings\label{fig:2}}
+	\end{centering}
+\end{figure}
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=4.4in,height=1.2in]{newresult}
+		\caption{ Mean running time compared with \inte, \REALROOT\ and \AND\label{fig:newresult}}
+	\end{centering}
+\end{figure}
+
+\begin{table}
+	\centering
+	\captionof{table}{Comparison on three special benchmarks}
+	\label{tab:other}
+	\begin{tabular}{|| c| c| c| c||}
+		\hline
+		
+		\hline
+		\scriptsize{Case}  &\ \  \ \ \ \ \scriptsize{$\frac{\inte }{\froot}$}\ \  \ \ \ \ \  \ \   & \ \ \ \ \  \scriptsize{$\frac{\REALROOT}{\froot}$} \ \ \ \ \  &\ \ \ \  \scriptsize{ $\frac{\AND}{\froot}$ }  \ \ \ \   \\
+		\hline
+		$W_n$ & 8.7 & 18.04 &  202 \\
+		\hline
+		$MR_n$ & 0.70 & 980 & 0.174\\
+		\hline
+		$MI_n$ & 0.58 & 1.89&  0.0029  \\
+		\hline
+		
+		\hline
+	\end{tabular}%}
+\end{table}
+
+\begin{table}
+	\centering
+	\captionof{table}{Comparison on $MR_n$}
+	\label{tab:and}
+	\begin{tabular}{|| c| c| c| c| c ||}
+		\hline
+		
+		\hline
+		\scriptsize{Degree}  &\ \  \ \ \ \ \scriptsize{\froot}\ \  \ \  \ \   & \scriptsize{\REALROOT} &\scriptsize{\inte}  &\ \   \ \    \scriptsize{\AND}\ \ \ \   \\
+		\hline
+		$128$ & 0.016 & 0.734 &  0.015 &  0.02\\
+		\hline
+		$181$ & 0.018 & 11.154 & 0.031 & 0.038\\
+		\hline
+		$256$ & 0.034 & 94.849&  0.046  & 0.063\\
+		\hline
+		$362$ & 0.083 & >600&  0.094 & 0.11\\
+		\hline
+		$512$ & 0.20 &  >600 & 0.219 & 0.20  \\
+		
+		\hline
+		$724$ & 0.55 &  >600&  0.344 & 0.42 \\
+		
+		\hline
+		$1024$ & 1.46 & >600 & error & 0.79 \\
+		
+		\hline
+		$1448$ & 6.48 &  >600&  error &  1.69 \\
+		\hline
+		$2096$ & 24.19 &  >600&  error & 3.16 \\	
+		\hline
+		
+		\hline
+	\end{tabular}%}
+\end{table}
+
 More test results can be found at
 	
 	 \url{https://github.com/djuanbei/logcf/blob/master/testresult.xls}
 
-In our experiments when {\em Algorithm \ref{alg:up}} is used for computing upper bounds, $T(p)$  takes  more than ninety percent of running time\footnote{The result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but finally we chose the  classical method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think further substituting will still improve the performance of our method.
+In our experiments when {\em Algorithm \ref{alg:up}} is used for computing upper bounds, $T(p)$  takes  more than ninety percent of running time\footnote{The result of  GNU gprof.}.  We have considered methods in \cite{ger04} for computing $T(p)$, but finally we chose the  classical method (Horner's method) for its simplicity. In future work we will use Divide \& Conquer method which is the fastest in \cite{ger04}. We think this will further improve the performance of our tool.
 
 \begin{comment}
 \begin{table}
@@ -245,95 +323,3 @@ $U_{200}$ & 4.15 &  0.12& $M_{1200}$ & 88 & 0.05 \\
 \end{figure}
 
 \end{comment}
-
-
-\begin{figure}
-	\begin{centering}
-		\includegraphics[width=4.4in,height=1.2in]{logcfslv}
-		\caption{ Mean running time with differ kinds of polynomials under old environment\label{fig:3}}
-	\end{centering}
-\end{figure}
-
-
-
-
-\begin{figure}
-	\begin{centering}
-		\includegraphics[width=4.4in,height=1.2in]{Rn}
-		\caption{ $R(n,b,r)$ benchmarks  with differ setting on new environment\label{fig:2}}
-	\end{centering}
-\end{figure}
-
-
-
-\begin{figure}
-	\begin{centering}
-		\includegraphics[width=4.4in,height=1.2in]{newresult}
-		\caption{ Mean running time with differ kinds of polynomials under new environment\label{fig:newresult}}
-	\end{centering}
-\end{figure}
-
-\begin{table}
-	\centering
-	\captionof{table}{Mean running time with differ kinds of polynomials under new environment}
-	\label{tab:other}
-	\begin{tabular}{|| c| c| c| c||}
-		\hline
-		
-		\hline
-		\scriptsize{Case}  &\ \  \ \ \ \ \scriptsize{$\frac{\inte }{\froot}$}\ \  \ \ \ \ \  \ \   & \ \ \ \ \  \scriptsize{$\frac{\REALROOT}{\froot}$} \ \ \ \ \  &\ \ \ \  \scriptsize{ $\frac{\AND}{\froot}$ }  \ \ \ \   \\
-		\hline
-		$W_n$ & 8.7 & 18.04 &  202 \\
-		\hline
-		$MR_n$ & 0.70 & 980 & 0.174\\
-		\hline
-		$MI_n$ & 0.58 & 1.89&  0.0029  \\
-		\hline
-		
-		\hline
-	\end{tabular}%}
-\end{table}
-
-
-
-
-\begin{table}
-	\centering
-	\captionof{table}{Run time(s) on $MR_n$ polynomails under new environment}
-	\label{tab:and}
-	\begin{tabular}{|| c| c| c| c| c ||}
-		\hline
-		
-		\hline
-		\scriptsize{Degree}  &\ \  \ \ \ \ \scriptsize{\froot}\ \  \ \  \ \   & \scriptsize{\REALROOT} &\scriptsize{\inte}  &\ \   \ \    \scriptsize{\AND}\ \ \ \   \\
-		\hline
-		$128$ & 0.016 & 0.734 &  0.015 &  0.02\\
-		\hline
-		$181$ & 0.018 & 11.154 & 0.031 & 0.038\\
-		\hline
-		$256$ & 0.034 & 94.849&  0.046  & 0.063\\
-		\hline
-		$362$ & 0.083 & >600&  0.094 & 0.11\\
-		\hline
-		$512$ & 0.20 &  >600 & 0.219 & 0.20  \\
-		
-		\hline
-		$724$ & 0.55 &  >600&  0.344 & 0.42 \\
-		
-		\hline
-		$1024$ & 1.46 & >600 & error & 0.79 \\
-		
-		\hline
-		$1448$ & 6.48 &  >600&  error &  1.69 \\
-		\hline
-		$2096$ & 24.19 &  >600&  error & 3.16 \\	
-		\hline
-		
-		\hline
-	\end{tabular}%}
-\end{table}
-
-
-
-
-
